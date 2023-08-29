@@ -1,0 +1,50 @@
+﻿<Window x:Class="Oracle.RightNow.Cti.MediaBar.Views.InputDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Oracle.RightNow.Cti.MediaBar.Views"
+             WindowStartupLocation="CenterScreen"
+             mc:Ignorable="d" ContentRendered="Window_ContentRendered"
+             SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Oracle.RightNow.Cti.Mediabar;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="ApplicationSemiSubtleBrush" Color="#FFBDBDBD" Opacity="0.8"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        
+
+        <Label Name="lblQuestion" Grid.Column="1">Question:</Label>
+        <TextBox Name="txtAnswer" Grid.Column="1" Grid.Row="1" MinWidth="250">Answer</TextBox>
+
+        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Name="btnDialogOk" IsDefault="True" Style="{StaticResource MediaBarButtonStyle}" MinWidth="60" Margin="0,0,10,0"
+                    Height="26"
+                    Width="70"
+                    Click="btnDialogOk_Click"
+                    BorderBrush="{StaticResource ButtonNormalBorder}" BorderThickness="1">
+                _Ok
+            </Button>
+            <Button Style="{StaticResource MediaBarButtonStyle}" IsCancel="True" MinWidth="60"  Grid.Row="3"
+                    Height="26"
+                    Width="70"
+                    BorderBrush="{StaticResource ButtonNormalBorder}" BorderThickness="1">
+                _Cancel
+            </Button>
+        </WrapPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,200 @@
+﻿<UserControl x:Class="Oracle.RightNow.Cti.MediaBar.Views.ManageCampaign"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:Oracle.RightNow.Cti.MediaBar.Views"
+              xmlns:System="clr-namespace:System;assembly=mscorlib"       
+              xmlns:converters="clr-namespace:Oracle.RightNow.Cti.MediaBar.Converters" 
+             Background="White" Name="UI" Height="Auto">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Oracle.RightNow.Cti.Mediabar;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="HyperlinkLikeButton" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <ControlTemplate.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="TextDecorations" Value="Underline" />
+                                        </Style>
+                                    </ControlTemplate.Resources>
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+            <Style x:Key="MyButtonStyle" TargetType="Button">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" 
+                            BorderThickness="1"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <SolidColorBrush x:Key="PrimaryBrush" Color="#FF4169AA" />
+            <SolidColorBrush x:Key="PrimaryFont" Color="White" />
+            <SolidColorBrush x:Key="ApplicationSemiSubtleBrush" Color="#FFBDBDBD" Opacity="0.8"/>
+            <System:Double x:Key="ApplicationFontSizeSmall">12</System:Double>
+            <System:Double x:Key="ApplicationFontSizeMediumLarge">25.333</System:Double>
+            <converters:ContactToStringConverter x:Key="ContactToStringConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--<Viewbox>-->
+        <Grid DataContext="{Binding ElementName=UI}" Height="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="80*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0"  VerticalAlignment="Center" Height="60" Width="240">
+                <Image Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.campaign.edit.png" Width="48" Height="48" HorizontalAlignment="Center"/>
+                <Label Content="Manage SMS Campaign" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Height="31" Width="215"  VerticalAlignment="Center"></Label>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="Hidden">
+                <ComboBox Visibility="Hidden" Name="cboReportList" BorderBrush="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="26" BorderThickness="1" Margin="5,5,5,5" SelectionChanged="cboReportList_SelectionChanged"
+                  />
+            </StackPanel>
+            <Label Grid.Row="2" Name="lblLoading" Content="Loading Data. Please wait." Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Grid Grid.Row="2" HorizontalAlignment="Center" Margin="5,20,5,5">
+                <DataGrid  AutoGeneratingColumn="gridCampaignlist_AutoGeneratingColumn" ItemsSource="{Binding DataGridCollection}"
+          HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True"
+                       AutoGeneratedColumns="gridCampaignlist_AutoGeneratedColumns" HeadersVisibility="Column"
+                      AutoGenerateColumns="True" SelectionMode="Single" Name="gridCampaignlist">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryFont}" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Manage">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Button Style="{StaticResource HyperlinkLikeButton}" Click="btnEdit_Click" Margin="5,5,5,5" Visibility="{Binding EditVisiblity, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <TextBlock>Edit</TextBlock>
+                                        </Button>
+                                        <Button Style="{StaticResource HyperlinkLikeButton}" Click="Button_Cancel_Click" Margin="5,5,5,5" HorizontalAlignment="Right" Visibility="{Binding CancelVisiblity, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <TextBlock>Cancel</TextBlock>
+                                        </Button>
+                                        <Button Style="{StaticResource HyperlinkLikeButton}" Click="Button_Stop_Click" Margin="5,5,5,5" HorizontalAlignment="Center"  Visibility="{Binding StopVisiblity, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <TextBlock>Stop</TextBlock>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--<DataGridTemplateColumn Header="Cancel Campaign">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource HyperlinkLikeButton}" Click="Button_Cancel_Click">
+                                    <TextBlock>Cancel Campaign</TextBlock>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+                        <!--<DataGridTextColumn Binding="{Binding Path=ID}" IsReadOnly="True" Header="ID" Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding Path=CampaignName}" Header="CampaignName" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=DateCreated}" Header="DateCreated" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=CampaignRunTime}" Header="RunTime" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=CampaignMessage}" Header="MessageBody" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=Alpha}" Header="Alpha" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=Override}" Header="Override" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=OptOut}" Header="OptOut" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=AgentID}" Header="AgentID" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=ListID}" Header="ListID" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=StartTime}" Header="StartTime" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Path=FinishTime}" Header="FinishTime" Width="Auto" />-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid Grid.Row="3" >
+                <StackPanel Orientation="Horizontal" 
+            HorizontalAlignment="Center">
+                    <Button Height="23" HorizontalAlignment="Left" 
+               Style="{StaticResource MyButtonStyle}"
+                Name="btnFirst" VerticalAlignment="Bottom" 
+
+                Width="40" Content="&lt;&lt;" 
+
+                Click="btnFirst_Click" Opacity="0.75"/>
+                    <Button Height="23"  VerticalAlignment="Bottom"  Style="{StaticResource MyButtonStyle}"
+                Name="btnPrev" Width="40" Click="btnPrev_Click" 
+
+                Opacity="0.75" Content="&lt;"/>
+                    <Label x:Name="lblpageInformation" 
+
+                HorizontalContentAlignment="Center" 
+
+                HorizontalAlignment="Left" Height="30" 
+
+                Width="100" VerticalContentAlignment="Center" 
+
+                VerticalAlignment="Bottom"/>
+                    <Button Height="23" HorizontalAlignment="Right"  Style="{StaticResource MyButtonStyle}"
+
+                Name="btnNext" VerticalAlignment="Bottom" 
+
+                Width="40" Content="&gt;" 
+
+                Click="btnNext_Click" Opacity="0.75"/>
+                    <Button Height="23" HorizontalAlignment="Right"  Style="{StaticResource MyButtonStyle}"
+
+                VerticalAlignment="Bottom" Width="40" 
+
+                Name="btnLast" Click="btnLast_Click" 
+
+                Opacity="0.75" Content="&gt;&gt;"/>
+                    <ComboBox x:Name="cbNumberOfRecords"  Height="23"
+                BorderBrush="Gray" BorderThickness="1"
+                HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
+
+                Width="120"  SelectedIndex="0" 
+
+                SelectionChanged="cbNumberOfRecords_SelectionChanged"  Margin="5,5,5,5"
+
+                Opacity="0.75"/>
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    <!--</Viewbox>-->
+</UserControl>

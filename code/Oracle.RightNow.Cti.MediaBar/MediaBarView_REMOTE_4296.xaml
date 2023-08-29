@@ -1,0 +1,430 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
+    xmlns:converters="clr-namespace:Oracle.RightNow.Cti.MediaBar.Converters" 
+    xmlns:mediabar="clr-namespace:Oracle.RightNow.Cti.MediaBar"
+    xmlns:model="clr-namespace:Oracle.RightNow.Cti.Model;assembly=Oracle.RightNow.Cti" 
+    x:Class="Oracle.RightNow.Cti.MediaBar.MediaBarView" 
+    mc:Ignorable="d"  Background="White" Width="Auto" Height="Auto">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Oracle.RightNow.Cti.Mediabar;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:AgentStateToBrushConverter x:Key="AgentStateToBrushConverter"/>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:LoggedInStateToImageConverter x:Key="LoggedInStateToImageConverter"/>
+            <converters:MediaTypeToVisibilityConverter x:Key="MediaTypeToVisibilityConverter"/>
+            <converters:MediaTypeToImageConverter x:Key="MediaTypeToImageConverter"/>
+            <converters:InteractionStateToStringConverter x:Key="InteractionStateToStringConverter"/>
+            <!--<model:MediaType x:Key="MediaTypeVoice" >Voice</model:MediaType>-->
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Viewbox>
+    <Grid HorizontalAlignment="Stretch" Height="48">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="130"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="3"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+            <Rectangle Width="5" Fill="{Binding CurrentAgentState, Converter={StaticResource AgentStateToBrushConverter}}" Margin="1,1,3,1"/>
+            <StackPanel HorizontalAlignment="Right" Margin="0,0,10,0" Visibility="{Binding IsAgentLoggedIn}">
+                <TextBlock FontFamily="Segoe UI" FontSize="18" Text="{Binding FinesseAgentID}"/>
+                <TextBlock FontFamily="Segoe UI" FontSize="12" Text="{Binding FinesseAgentExtension}" Foreground="#FF007ACC"/>
+            </StackPanel>
+            <Rectangle Height="40" Width="1" Fill="LightGray" Visibility="{Binding IsAgentLoggedIn}"/>
+            <Button Width="48" Height="48" Padding="0" 
+                    IsEnabled="{Binding CanChangeConnectionState}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Connect/Disconnect Finesse"
+                    Command="{Binding ShowAgentLoginCommand}">
+                <Image  Source="{Binding IsAgentLoggedIn, Converter={StaticResource LoggedInStateToImageConverter}}"/>
+            </Button>
+            <!--<StackPanel HorizontalAlignment="Right" Margin="0,12,200,0" Name="panelFinesseStatus" Visibility="Hidden">
+                <TextBlock FontFamily="Segoe UI" FontSize="14" Text="{Binding FinesseConnectionStatus}"/>
+            </StackPanel>-->
+            <ComboBox Style="{DynamicResource MediaBarComboBox}" 
+                      IsEnabled="{Binding CanChangeState}"
+                      Width="220"
+                      ItemsSource="{Binding AgentStates}"
+                      SelectedItem="{Binding CurrentAgentState, Mode=TwoWay}"
+                      >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="{Binding Name}" FontSize="16"/>
+                            <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <ComboBox.ItemContainerStyle>
+                    <Style  TargetType="{x:Type ComboBoxItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Padding" Value="3,0,3,0"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                    <Grid Height="50" Visibility="{Binding AgentSelectable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5" x:Name="StatusColumn"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Fill="{Binding Converter={StaticResource AgentStateToBrushConverter}}" Width="7" Margin="0,1" HorizontalAlignment="Left"/>
+                                        <Border Grid.Column="1" x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsHighlighted" Value="true">
+                                            <Setter Property="Background" TargetName="Bd" Value="LightGray"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+            <!--<ItemsControl >
+            <ItemsControl.ItemTemplate>
+            <DataTemplate>
+            <Button Width="35" Height="35" Padding="0" Style="{DynamicResource MediaBarButtonStyle}" >
+            <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.connect.png"/>
+            </Button>
+            </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+            <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            </ItemsControl>-->
+
+            <!--Complete interaction-->
+            <Button Width="48" Height="48" Padding="0"
+                    x:Name="btnDial"
+                    IsEnabled="{Binding CanMakeCall}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Dial"
+                    Command="{Binding ShowDialOptionsCommand}">
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.dialpad.png"/>
+            </Button>
+            <Popup IsOpen="{Binding ShowDialOptions}" 
+                   StaysOpen="False"
+                   PlacementTarget="{Binding ElementName=btnDial}"  
+                   MinWidth="150">
+                <Grid Background="White">
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <StackPanel>
+                    <ItemsControl ItemsSource="{Binding ContextContacts}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        ToolTip="Dial"
+                                        Command="{Binding DataContext.DialCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                        CommandParameter="{Binding}">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Rectangle Height="1" Margin="1,3" Fill="LightGray"/>
+                    <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        Command="{Binding ShowDialPadComand}">
+                            <Grid>
+                                <TextBlock Text="Open dial pad" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Popup>
+
+            <!--Voice Controle-->
+            <!--<mediabar:VoiceBarView Visibility="{Binding CurrentInteraction, Converter={StaticResource MediaTypeToVisibilityConverter}, ConverterParameter={x:Static model:MediaType.Voice}}"></mediabar:VoiceBarView>-->
+
+            <Button Width="48" Height="48" Padding="0"
+                    x:Name="btnAssoc"
+                    IsEnabled="{Binding CanAssociateContact}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Associate current incoming call number with current contact record."
+                    Command="{Binding ShowAssociateContactCommand}">
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.record.add.png"/>
+            </Button>
+            <Popup IsOpen="{Binding ShowAssociateOptions}" 
+                   StaysOpen="False"
+                   PlacementTarget="{Binding ElementName=btnAssoc}"  
+                   MinWidth="150">
+                <Grid Background="White">
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding AssocContextContacts}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        ToolTip="Associate"
+                                        Command="{Binding DataContext.AssociateContactCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                        CommandParameter="{Binding}">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+            </Popup>
+            <Button Width="48" Height="48" Padding="0"
+                    x:Name="btnUnAssoc"
+                    IsEnabled="{Binding CanUnAssociateContact}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Unassociate current incoming call number with the current contact record."
+                    Command="{Binding UnassociateContactCommand}"
+                    >
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.record.remove.png"/>
+            </Button>
+            <!--<Rectangle Height="40" Width="1" Fill="LightGray" Visibility="{Binding IsAgentLoggedIn}"/>-->
+            <Button Width="48" Height="48" Padding="0"
+                    x:Name="btnWebRTCCall" 
+                     IsEnabled="{Binding ShowWebRTCButton}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Make a WebRTC Call."
+                    Command="{Binding WebRTCCallCommand}"
+                    >
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.voice.conference.png"/>
+            </Button>
+            <Popup IsOpen="{Binding ShowWebRTCDialOptions}" 
+                   StaysOpen="False"
+                   PlacementTarget="{Binding ElementName=btnWebRTCCall}"  
+                   MinWidth="150">
+                <Grid Background="White">
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding ContextContacts}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        ToolTip="WebRTC Dial"
+                                        Command="{Binding DataContext.DialCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                        CommandParameter="{Binding}">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Rectangle Height="1" Margin="1,3" Fill="LightGray"/>
+                        <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        Command="{Binding ShowChangeAgentNumberComand}">
+                            <Grid>
+                                    <TextBlock Text="Agent Phone Number" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Button>
+                        <Rectangle Height="1" Margin="1,3" Fill="LightGray"/>
+                        <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        Command="{Binding ShowDialPadComand}"
+                                        IsEnabled="{Binding HideDialPadWebRTC}">
+                            <Grid>
+                                <TextBlock Text="Open dial pad" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Popup>
+
+            <Button Width="48" Height="48" Padding="0"
+                    x:Name="btnSendSMS" 
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Send SMS"
+                    IsEnabled="{Binding ShowSMSButton}"
+                    Command="{Binding SendSMSCommand}">
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.voice.retrieve.png"/>
+            </Button>
+            <Popup IsOpen="{Binding ShowSendSMSOptions}" 
+                   StaysOpen="False"
+                   PlacementTarget="{Binding ElementName=btnSendSMS}"  
+                   MinWidth="150">
+                <Grid Background="White">
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding ContextContacts}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        ToolTip="Send SMS"
+                                        Command="{Binding DataContext.SendSMSDialogCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                        CommandParameter="{Binding}">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Rectangle Height="1" Margin="1,3" Fill="LightGray"/>
+                        <Button Height="30" Padding="0"
+                                        Style="{DynamicResource MediaBarButtonStyle}" 
+                                        Command="{Binding SendSMSDialogCommand}">
+                            <Grid>
+                                <TextBlock Text="Send Individual SMS" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Popup>
+            <!--Visibility="{Binding CanCreateCampaign, Converter={StaticResource BooleanToVisibilityConverter}}"-->
+            <Button Width="48" Height="48" Padding="0"
+                    x:Name="btnCampaign" 
+                    Visibility="{Binding CanCreateCampaign, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Create Campaign"
+                    Command="{Binding CreateCampaignCommand}">
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.campaign.add.png"/>
+            </Button>
+                <Button Width="48" Height="48" Padding="0"
+                    x:Name="btnCampaignEdit" 
+                    Visibility="{Binding CanCreateCampaign, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Manage SMS Campaigns"
+                    Command="{Binding ManageCampaignCommand}">
+                    <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.campaign.edit.png"/>
+                </Button>
+                <!--Record association-->
+            <!--<Button Width="48" Height="48" Padding="0"
+                    Visibility="{Binding CanAssociateToRecord, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Associate current record to interaction"
+                    Command="{Binding AssociateRecordCommand}">
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.record.add.png"/>
+            </Button>-->
+
+            <!--Complete interaction-->
+            <!--<Button Width="48" Height="48" Padding="0"
+                    Visibility="{Binding CanCompleteInteraction, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Style="{DynamicResource MediaBarButtonStyle}" 
+                    ToolTip="Complete interaction"
+                    Command="{Binding CompleteInteractionCommand}">
+                <Image  Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.complete.png"/>
+            </Button>-->
+
+        </StackPanel>
+        
+        <!--Interaction List-->
+        <!--<ComboBox Grid.Column="1"
+                  Visibility="{Binding HasInteractions, Converter={StaticResource BooleanToVisibilityConverter}}"
+                  Style="{DynamicResource MediaBarComboBox}" 
+                  Width="200"
+                  ItemsSource="{Binding Interactions}"
+                  SelectedItem="{Binding CurrentInteraction, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock FontSize="16">
+                            <TextBlock.Text>
+                                <PriorityBinding>
+                                    <Binding Path="Address"/>
+                                </PriorityBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Path=State, Converter={StaticResource InteractionStateToStringConverter}}" FontSize="12" Foreground="Gray"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            <ComboBox.ItemContainerStyle>
+                <Style  TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="Padding" Value="3,0,3,0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                <Grid Height="50" Visibility="{Binding AgentSelectable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="48"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Converter={StaticResource MediaTypeToImageConverter}}"/>
+                                    --><!--<Rectangle Fill="{Binding Converter={StaticResource AgentStateToBrushConverter}}" Width="7" Margin="0,1" HorizontalAlignment="Left"/>--><!--
+                                    <Border Grid.Column="1" x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsHighlighted" Value="true">
+                                        <Setter Property="Background" TargetName="Bd" Value="LightGray"/>
+                                        --><!--<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>--><!--
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>-->
+        
+        <!--Information area-->
+        <Grid Grid.Column="2" Margin="1"
+              HorizontalAlignment="Stretch" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,0">
+                <Image Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.info.voiceinteraction.png" Width="16" Height="16"
+                       Margin="5,0,5,0"/>
+                <TextBlock Text="{Binding CallCount}" FontFamily="Segoe UI" FontSize="16"/>
+                <Image Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.info.emailinteraction.png" Width="16" Height="16"
+                       Margin="10,0,5,0"/>
+                <TextBlock Text="{Binding EmailCount}" FontFamily="Segoe UI" FontSize="16"/>
+                <Image Source="/Oracle.RightNow.Cti.Mediabar;component/Images/mediabar.info.webinteraction.png" Width="16" Height="16"
+                       Margin="10,0,5,0"/>
+                <TextBlock Text="{Binding WebIncidentCount}" FontFamily="Segoe UI" FontSize="16"/>
+
+            </StackPanel>-->
+            <TextBlock Text="v18.3" Grid.Row="1"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="5,0"
+                       FontFamily="Segoe UI"
+                       FontSize="14"/>
+        </Grid>
+    </Grid>
+    </Viewbox>
+</UserControl>
