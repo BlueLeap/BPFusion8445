@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="5bf82221-f8a9-489e-95c6-256755cbf8d7"
+  name="Cti"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="6c21965e-c9f4-4927-a1f2-9d5c3fb46c7a"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DOracle.RightNow.Cti"
+      tag="ViewCode" />
+  </referencesInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="26f81cdf-97e3-4767-a775-107ff31c53c6">
+      <profileInstance
+        Id="a393c57a-e638-43e7-bdbd-358122355789"
+        name="CSharpProfile" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="edddfdf2-d093-4b98-9e4f-880df70c132d"
+        LastKnownName="Model"
+        LastKnownLocation="Package3_1725.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8f09a363-b29d-4ff1-942e-7858ae6e0990"
+        name="TransferCompletedEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="5863a671-35b3-4403-ba9c-89acc4644b2d"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FD:%2FSource Code%2FOracle%2FCti%2FOracle.RightNow.Cti%2FOracle.RightNow.Cti%2Fbin%2FDebug%2FOracle.RightNow.Cti.dll&quot; Namespace%3DOracle.RightNow.Cti Type%3DTransferCompletedEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="9e12a219-5b22-4f64-865f-b8903226159e"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f332b3b5-c84c-4bc1-a1a8-f1c2aeceee56">
+                <propertyInstance
+                  Id="011b96e8-9789-4b68-b21e-86e4426937dc"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5ebf14cc-483f-4845-9001-49af50dc4a34">
+                <propertyInstance
+                  Id="1a18e3de-06cb-4ee1-9404-a281bd74f0a6"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e95f6923-923c-42e4-9d33-1adecc1a155d">
+                <propertyInstance
+                  Id="51c7e6bb-500a-4bc7-8e95-655ba38e2f34"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="43fff1d8-9d5f-48fe-bee0-02d4c3d22f2a">
+                <propertyInstance
+                  Id="23f60476-3cf4-47b2-8bee-672b1736ed57"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7505c4f6-2665-49fc-b2d0-2291b770acc5">
+                <propertyInstance
+                  Id="32a4bafd-67ce-42c3-aab4-3216453317e0"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="db32be26-6d77-4bfb-ab30-653f59a360ad"
+        name="ExtensionChangedEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="8dac5fb7-74b9-48fa-9f79-610f5fd36da3"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FD:%2FSource Code%2FOracle%2FCti%2FOracle.RightNow.Cti%2FOracle.RightNow.Cti%2Fbin%2FDebug%2FOracle.RightNow.Cti.dll&quot; Namespace%3DOracle.RightNow.Cti Type%3DExtensionChangedEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="d9dd5eda-1b68-4bc9-a987-c9da8eb6f596"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="927880d0-fad2-4b25-ad40-ffad4d69ae99">
+                <propertyInstance
+                  Id="47840601-a74a-4891-bf36-31061ee5033e"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="926c10aa-379f-4399-8903-d9a1a753b29b">
+                <propertyInstance
+                  Id="317bd175-abd8-484c-b37e-76d6ff09d943"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7bdf73d2-5d4a-481f-8277-843bfb3156e5">
+                <propertyInstance
+                  Id="3945f8a0-261e-4716-a691-cd8ac30956ec"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="eac9a20e-a24e-46e3-bb5e-076f506b906e">
+                <propertyInstance
+                  Id="3405ae59-c810-4973-8a8a-12457712d8b6"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1a03c157-544e-437a-800e-793b7157d6f6">
+                <propertyInstance
+                  Id="c630a956-692c-4d63-a0d6-24d6f190ab2e"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8a672fb5-eae8-40ac-87a7-d7739a7ac5be"
+        name="InteractionStateChangedEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="1cacbf4b-4e98-4bb2-8c22-28b32cf12561"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FD:%2FSource Code%2FOracle%2FCti%2FOracle.RightNow.Cti%2FOracle.RightNow.Cti%2Fbin%2FDebug%2FOracle.RightNow.Cti.dll&quot; Namespace%3DOracle.RightNow.Cti Type%3DInteractionStateChangedEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="3b6f0958-e747-4150-a420-c207bcd6e7ab"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="55b44e99-3c3f-48dd-a665-de11ae9c1d8e">
+                <propertyInstance
+                  Id="b7803e99-0ef2-455c-b2c7-2c45fa9170b2"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="88434369-075d-4d29-a5d4-593a5f4e43e4">
+                <propertyInstance
+                  Id="adc77580-2779-486c-a435-33b51b4e3b39"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d86655fe-1706-4a08-9f5f-ad4fb105392e">
+                <propertyInstance
+                  Id="e4e5d7bd-e8d6-47bf-87f9-d18c0e449611"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fb1de083-e4c4-4d5a-8e78-64905396b2cc">
+                <propertyInstance
+                  Id="e4faafbb-ade3-4c6f-95e1-79429986ee60"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="827c228f-0981-44d5-8371-7e49c9b9b63a">
+                <propertyInstance
+                  Id="10dc308c-20b9-4ac7-bdd9-0c2d762b629f"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
