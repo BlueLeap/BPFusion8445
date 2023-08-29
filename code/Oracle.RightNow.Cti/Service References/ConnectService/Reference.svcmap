@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7872360d-1cb9-4664-a2c4-31da1c64ec5d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RightNow.wsdl" MetadataType="Wsdl" ID="7f912108-1c56-419b-a1a7-7ff7183e67c5" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?wsdl" />
+    <MetadataFile FileName="soap.xsd" MetadataType="Schema" ID="129eb7fc-ee9b-4df8-9493-00bf70bd8533" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?xsd=nullfields" />
+    <MetadataFile FileName="soap1.xsd" MetadataType="Schema" ID="ee2b7f7c-8845-404b-ab43-6db10353cdd2" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?xsd=metadata" />
+    <MetadataFile FileName="soap2.xsd" MetadataType="Schema" ID="1e468de4-c88d-4264-b0e5-e275fe25613f" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?xsd=faults" />
+    <MetadataFile FileName="soap3.xsd" MetadataType="Schema" ID="b56741e8-d797-4f2a-895e-199c04605ed0" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?xsd=objects" />
+    <MetadataFile FileName="soap7.xsd" MetadataType="Schema" ID="4fe4685d-3f90-4cb3-91f6-250a69004e9a" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?xsd=messagestyped" />
+    <MetadataFile FileName="soap6.xsd" MetadataType="Schema" ID="cbf555af-ace8-4bb4-9d31-7bdf61ef80f1" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?xsd=base" />
+    <MetadataFile FileName="soap5.xsd" MetadataType="Schema" ID="068fc3c5-4dd1-43b1-982d-11cdc93a4fb0" SourceId="1" SourceUrl="https://askvu--tst4.custhelp.com/cgi-bin/askvu.cfg/services/soap?xsd=generic" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
