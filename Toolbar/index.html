@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+		<meta charset="UTF-8">
+		<meta name="Generator" content="EditPlus®">
+		<meta name="Author" content="">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<link rel="stylesheet" href="custom.css">
+
+		<script type="text/javascript">
+				//Set the JabberWerx connect to unsecure because the custom authentication
+				//on the XMPP server does not support encrypted credentials.
+				var jabberwerx_config = { unsecureAllowed: true };
+		</script>
+
+		<!-- Import jQuery library which is used do DOM manipulation and make Ajax requests -->
+		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+
+		<!-- Uses the Cisco AXL library (aka JabberWerx) to setup and receive events -->
+		<script type="text/javascript" src="jabberwerx.js"></script>
+		<script type="text/javascript" src="config.js"></script>
+		
+		<!-- Load the sample Finessenongadget sample which showcase examples of making requests. -->
+		<script type="text/javascript" src="finessenongadget.js"></script>
+		<!-- Load core page controller JS to bind buttons and show/hide appropriate UI elements -->
+		<script type="text/javascript" src="sample.js"></script>
+
+
+		<style>
+				.modal {
+						display: none;
+						/* Hidden by default */
+						position: fixed;
+						/* Stay in place */
+						z-index: 1;
+						/* Sit on top */
+						left: 0;
+						top: 0;
+						width: 100%;
+						/* Full width */
+						height: 100%;
+						/* Full height */
+						overflow: auto;
+						/* Enable scroll if needed */
+						background-color: rgb(0, 0, 0);
+						/* Fallback color */
+						background-color: rgba(0, 0, 0, 0.4);
+						/* Black w/ opacity */
+				}
+
+				/* Modal Content/Box */
+				.modal-content {
+						background-color: #fefefe;
+						margin: 15% auto;
+						/* 15% from the top and centered */
+						padding: 20px;
+						border: 1px solid #888;
+						width: 80%;
+						/* Could be more or less, depending on screen size */
+				}
+		</style>
+
+
+
+</head>
+
+<body>
+		<div class="content">
+				<div class="left">
+						<div class="user-type" onclick="getAgentState()">
+								<span id="agentName">Agent</span>
+						</div>
+
+						<div class="conn" onclick="finesseLoginClickHandler();" id="conn" title="Agent Login">
+								<div class="icon">
+										<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="75.000000pt" height="50.000000pt"
+												viewBox="0 0 94.000000 79.000000" preserveAspectRatio="xMidYMid meet">
+
+												<g transform="translate(0.000000,79.000000) scale(0.100000,-0.100000)" fill="#000000"
+														stroke="none" style="cursor: pointer;">
+														<path d="M310 562 c0 -4 12 -24 26 -43 22 -29 25 -42 21 -84 -2 -27 -2 -56 0
+									 -62 6 -16 35 -17 51 -1 12 12 24 -10 33 -57 4 -17 15 -21 65 -26 38 -3 75 -14
+									 98 -28 20 -13 39 -21 42 -18 3 2 -7 26 -21 52 -17 33 -25 64 -25 97 0 30 -5
+									 50 -12 52 -68 18 -73 21 -70 49 2 17 -1 27 -10 27 -114 4 -125 6 -152 28 -30
+									 23 -46 28 -46 14z m187 -147 c8 -21 -1 -28 -27 -20 -17 5 -19 10 -9 21 15 18
+									 28 18 36 -1z" />
+												</g>
+										</svg>
+								</div>
+						</div>
+						<div class="conndisconn" id="conndisconn" title="Agent logout">
+								<div class="icon" onclick="finesseLogoutClickHandler();" title="Agent Logout">
+										<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="48.000000pt" height="48.000000pt"
+												viewBox="0 0 48.000000 48.000000" preserveAspectRatio="xMidYMid meet">
+
+												<g transform="translate(0.000000,48.000000) scale(0.100000,-0.100000)" fill="#000000"
+														stroke="none" style="cursor: pointer;">
+														<path
+																d="M126 352 c-3 -5 3 -17 13 -26 14 -13 18 -26 14 -55 -8 -58 12 -61 64 -8 52 51 50 71 -6 64 -26 -3 -42 1 -57 15 -12 11 -25 15 -28 10z" />
+														<path
+																d="M250 256 c0 -8 5 -18 10 -21 6 -4 8 -10 5 -15 -4 -6 -14 -4 -25 2 -22 14 -36 6 -24 -14 5 -7 9 -22 9 -33 0 -17 7 -20 41 -20 26 0 49 -7 61 -18 25 -22 38 -9 16 16 -11 12 -18 35 -18 61 0 35 -3 41 -22 41 -11 0 -25 3 -29 8 -12 12 -24 8 -24 -7z" />
+												</g>
+										</svg>
+								</div>
+
+
+						</div>
+
+						<div class="actionbutton sendSms">
+								<div class="icon sms" onclick="smsclickhandler();" title="send SMS">
+										<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+												xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 511.999 511.999"
+												style="enable-background:new 0 0 511.999 511.999;" xml:space="preserve">
+												<path style="fill:#FFC72D;" d="M159.308,490.576l8.725-103.568h-44.257c-47.166,0-85.539-38.373-85.539-85.539V85.539
+	C38.237,38.373,76.61,0,123.776,0h264.447c47.166,0,85.539,38.373,85.539,85.539v215.93c0,47.166-38.373,85.539-85.539,85.539
+	h-41.918L191.103,507.81C177.626,518.298,157.855,507.809,159.308,490.576z" />
+												<path style="fill:#FFBE00;" d="M388.222,0H256v457.297l90.304-70.289h41.918c47.166,0,85.539-38.373,85.539-85.539V85.539
+	C473.762,38.373,435.39,0,388.222,0z" />
+												<g>
+														<circle style="fill:#36495E;" cx="178.171" cy="193.503" r="23.688" />
+														<circle style="fill:#36495E;" cx="255.998" cy="193.503" r="23.688" />
+												</g>
+												<g>
+														<circle style="fill:#2C3E50;" cx="333.826" cy="193.503" r="23.688" />
+														<path style="fill:#2C3E50;" d="M256,169.816c-0.001,0-0.003,0-0.004,0v47.374c0.001,0,0.003,0,0.004,0
+		c13.082,0,23.688-10.606,23.688-23.688C279.688,180.422,269.082,169.816,256,169.816z" />
+												</g>
+										</svg>
+
+								</div>
+						</div>
+						<div class="actionbutton campaignSms">
+								<div class="icon sms" onclick="sms_campaign_clickhandler();" title="Create SMS Campaign">
+										<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+										width="48.000000pt" height="48.000000pt" viewBox="0 0 48.000000 48.000000"
+										preserveAspectRatio="xMidYMid meet">
+
+										<g transform="translate(0.000000,48.000000) scale(0.100000,-0.100000)"
+										fill="#000000" stroke="none">
+										<path d="M77 414 c-4 -4 -7 -42 -7 -85 0 -85 3 -89 66 -89 34 0 34 0 34 -48 0
+										-60 12 -72 70 -72 37 0 52 -5 70 -25 29 -31 40 -32 40 -2 0 14 9 26 23 32 20
+										9 22 17 22 90 l0 80 -47 3 -47 3 -3 57 -3 57 -106 3 c-58 1 -108 -1 -112 -4z
+										m201 -81 c-3 -62 -5 -68 -25 -71 -13 -2 -23 -10 -23 -19 0 -15 -2 -15 -18 0
+										-9 9 -40 17 -67 19 l-50 3 -3 68 -3 67 96 0 96 0 -3 -67z"/>
+										</g>
+										</svg>
+
+								</div>
+						</div>
+						<div class="actionbutton viberCall">
+								<div class="icon viber" onclick="finesseCallclickhandler();">
+										<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+												xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 498.894 498.894"
+												style="enable-background:new 0 0 498.894 498.894;" xml:space="preserve">
+												<path style="fill:#9165B7;" d="M490.065,426.205c-5.968,15.376-29.176,44.2-45.392,56.512
+	c-14.688,11.12-25.072,15.384-38.792,16.032c-11.288,0.552-15.968-0.408-30.4-6.368c-113.216-46.616-203.608-116.176-275.392-211.76
+	c-37.48-49.912-66.024-101.68-85.528-155.384C3.185,93.909,2.625,80.309,11.969,64.277c4.04-6.752,21.224-23.496,33.696-32.832
+	C66.489,15.981,76.073,10.261,83.737,8.661c5.24-1.136,14.36-0.256,20.168,1.84c2.824,0.968,7.168,3.232,9.672,4.832
+	c15.328,10.152,57.976,64.664,71.92,91.864c7.976,15.544,10.648,27.056,8.152,35.592c-2.568,9.176-6.848,14-25.96,29.384
+	c-7.664,6.192-14.84,12.56-15.968,14.248c-2.912,4.184-5.256,12.392-5.256,18.192c0.104,13.456,8.816,37.84,20.256,56.608
+	c8.864,14.568,24.76,33.248,40.488,47.592c18.464,16.896,34.752,28.408,53.136,37.512c23.632,11.752,38.064,14.728,48.624,9.816
+	c2.664-1.2,5.488-2.816,6.376-3.536c0.816-0.728,7.016-8.296,13.8-16.672c13.064-16.424,16.032-19.08,24.984-22.144
+	c11.368-3.856,22.968-2.816,34.672,3.144c8.88,4.592,28.232,16.584,40.728,25.28c16.44,11.512,51.624,40.176,56.368,45.888
+	C494.273,398.421,495.697,411.637,490.065,426.205z" />
+												<path style="fill:#7B509C;" d="M485.881,388.109c-4.744-5.712-39.928-34.368-56.368-45.888c-12.496-8.696-31.84-20.688-40.728-25.28
+	c-11.704-5.96-23.304-7-34.672-3.144c-8.952,3.064-11.92,5.72-24.984,22.144c-6.784,8.376-12.984,15.944-13.8,16.672
+	c-0.888,0.72-3.712,2.336-6.376,3.536c-10.56,4.912-24.992,1.936-48.624-9.816c-18.384-9.104-34.672-20.616-53.136-37.512
+	c-15.728-14.344-31.616-33.024-40.488-47.592c-11.448-18.768-20.16-43.16-20.256-56.608c0-5.8,2.344-14,5.256-18.192
+	c0.456-0.688,1.912-2.152,3.992-4.032c-28.464,17.072-62.64,27.04-99.416,27.04c-0.944,0-1.88-0.064-2.832-0.08
+	c13.616,24.168,29.112,47.928,46.632,71.272c71.784,95.584,162.168,165.144,275.392,211.76c14.432,5.96,19.112,6.928,30.4,6.368
+	c13.72-0.656,24.104-4.92,38.792-16.032c16.208-12.312,39.424-41.136,45.392-56.512
+	C495.697,411.637,494.273,398.421,485.881,388.109z" />
+												<path style="fill:#9165B7;"
+														d="M246.225,3.653c3.8-3.456,6.456-3.944,19.6-3.528c6.84,0.24,16.928,1.04,22.424,1.68
+	c27.728,3.464,50.144,10.144,74.736,22.144c24.2,11.832,39.68,23.024,60.168,43.4c19.192,19.232,29.824,33.824,41.12,56.448
+	c15.728,31.552,24.688,69.072,26.208,110.384c0.552,14.088,0.168,17.232-3.064,21.256c-6.136,7.808-19.576,6.512-24.176-2.256
+	c-1.464-2.896-1.864-5.392-2.344-16.672c-0.824-17.304-2.024-28.496-4.432-41.864c-9.512-52.416-34.68-94.288-74.832-124.32
+	c-33.472-25.12-68.064-37.36-113.376-40.016c-15.32-0.88-18-1.448-21.456-4.104C240.337,21.125,240.017,9.213,246.225,3.653z" />
+												<path style="fill:#7B509C;" d="M342.337,107.365c-16.208-9.664-40.168-16.84-62.008-18.608c-7.904-0.64-12.256-2.256-15.24-5.72
+	c-4.584-5.232-5.08-12.32-1.192-18.192c4.176-6.52,10.624-7.576,29.904-4.672c48.936,7.168,86.848,29.872,111.688,66.752
+	c13.952,20.768,22.648,45.168,25.648,71.336c1.04,9.584,1.04,27.056-0.088,29.952c-1.064,2.736-4.448,6.448-7.352,7.976
+	c-3.136,1.608-9.832,1.456-13.528-0.488c-6.208-3.136-8.064-8.128-8.064-21.656c0-20.856-5.408-42.84-14.76-59.904
+	C376.689,134.653,361.233,118.557,342.337,107.365z" />
+												<g>
+														<path style="fill:#5F3882;" d="M369.609,214.685c-4.768,4.352-13.544,4.512-18.88,0.4c-3.848-2.896-5.08-5.96-5.96-14.248
+		c-1.064-11.032-2.984-18.76-6.296-25.92c-7.104-15.224-19.584-23.112-40.704-25.696c-9.928-1.2-12.904-2.328-16.144-6.112
+		c-5.88-7.008-3.616-18.36,4.52-22.544c3.064-1.52,4.352-1.696,11.12-1.288c4.2,0.24,10.408,0.968,13.72,1.688
+		c15.888,3.384,28.048,9.416,38.456,19.168c13.392,12.648,20.736,27.944,23.952,49.92
+		C375.561,204.381,374.665,210.021,369.609,214.685z" />
+														<path style="fill:#5F3882;" d="M485.881,388.109c-4.744-5.712-39.928-34.368-56.368-45.888
+		c-12.496-8.696-31.84-20.688-40.728-25.28c-11.704-5.96-23.304-7-34.672-3.144c-8.952,3.064-11.92,5.72-24.984,22.144
+		c-6.784,8.376-12.984,15.944-13.8,16.672c-0.84,0.688-3.456,2.168-6.008,3.352c-20.016,24.112-43.592,44.96-69.976,61.568
+		c41.232,29.536,86.488,54.4,136.144,74.84c14.432,5.96,19.112,6.928,30.4,6.368c13.72-0.656,24.104-4.92,38.792-16.032
+		c16.208-12.312,39.424-41.136,45.392-56.512C495.697,411.637,494.273,398.421,485.881,388.109z" />
+												</g>
+										</svg>
+								</div>
+						</div>
+
+				</div>
+				<div class="right">
+						<div class="divctiver">
+								<img class="icon" src="bui_cti_ver.png" alt="Blueleap"/>
+						</div>
+				</div>
+		</div>
+</body>
+
+</html>
+
+
+
+<script type="text/javascript" id="dynamicLoadScript">
+
+	//  @Author: Don Muzzi       *********************************************//
+	//  @Date :  July 17         *********************************************//
+	 (
+			function() {
+				window.dynamicLoadCompleted = false;
+				window.staticLoadCompleted = false;
+				console.log("##DLS: Running DynamicLoadScript to load the Oracle API JSSSSSSSS...");
+				
+				function getParameterByName(name) {
+					var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+					console.log('match: ===> ', match);
+					return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+				}
+		
+				var oraApiPath = '';
+				var oraOrigin = getParameterByName('oraParentFrame');
+				var oraApiSource = getParameterByName('oraApiSource');
+
+
+				console.log('##DLS: PageParameters - oraParentFrame: '+oraOrigin+'oraApiSource: '+oraApiSource);
+				try {                
+					if (oraApiSource && oraApiSource.startsWith("http")) {
+						oraApiPath = oraApiSource; //handle case where apiSource is loaded from external CDN
+					} else {
+						oraApiPath = oraOrigin+oraApiSource;
+					}
+				console.log('##DLS: Oracle API JS URL: '+oraApiPath);    
+				} catch (e) {
+					console.log('##DLS: Error '+e);
+					console.error(e);
+				}
+				function onDynamicLoadComplete() {
+					/* TODO INSERT ANY INIT PROCESSING HERE */
+					console.log('Dynamic Load Complete');
+				}
+				if (typeof define === 'function' && define.amd) {
+					try {
+						require([oraApiPath], function (mcaTlb) {
+							window['svcMca'] = {};
+							window.svcMca['tlb'] = mcaTlb;
+							window.dynamicLoadCompleted = true;
+							console.log('##DLS: Successfully loaded Oracle API JS');
+							onDynamicLoadComplete();
+						});
+					} 
+					catch (e) {
+						console.log('##DLS: Error loading ORACLE API JS from URL:'+oraApiPath);
+						console.error(e);
+					}
+				} else {
+					var currentNode = document.getElementById('dynamicLoadScript');
+					var node = document.createElement('script');
+					node.type = 'text/javascript';
+					node.charset = 'utf-8';
+					node.async = true;
+					node.src = oraApiPath;
+					node.addEventListener('load', function(evt) {
+						window.dynamicLoadCompleted = true;
+						console.log('##DLS: Successfully loaded Oracle API JS');
+						onDynamicLoadComplete();
+					}, false);
+					node.addEventListener('error', function(evt) {
+						console.log('##DLS: Error loading ORACLE API JS from URL:'+node.src);
+					}, false);
+					currentNode.parentNode.insertBefore(node, currentNode.nextSibling);
+				}
+			}
+		)();
+</script>
+
+
+<script type="text/javascript" src="https://cdbu-test.fa.ap1.oraclecloud.com/crmUI/js/mcaInteractionV210701.js"> 
+</script>
+
+
+<script>
+	//  document.getElementById('user').innerHTML = localStorage.getItem('user')
+	let loginStatus = false
+	if(localStorage.hasOwnProperty('agentObject')){
+		loginStatus = true;
+		var agentInfo = localStorage.getItem('agentObject')
+		var loginUserName = JSON.parse(localStorage.getItem('agentObject')).username;
+		console.log('loginName ===>', loginUserName)
+		document.getElementById('agentName').textContent = loginUserName
+
+	}
+	else{
+		document.getElementById('agentName').textContent = 'Agent'
+	}
+
+
+	
+
+	const finesseLoginClickHandler = () => {
+		console.log('finesseLoginClickHandler');
+		const login = window.open("https://bluleap-mediabar.web.app/login-page.html", "mozillaWindow", 'popup');
+	}
+
+	const finesseLogoutClickHandler = () => {
+		console.log('finesseLogoutClickHandler');
+		agentSignOut(function(){
+      $("#conn").show() //by default , connect icon is shown
+      // $("#conndisconn").hide()
+    });
+	}
+
+	var finesseCallclickhandler = () => {
+		if(loginStatus === false)
+			alert('please login');
+		else{
+			console.log("getConfigurationDialpad + onOutgoingEvent");
+			svcMca.tlb.api.getConfiguration(function (response) {
+    		if (response.result == 'success') {
+    		  alert('Success! Configuration is: ' + response.configuration);
+    		  console.log(response)
+	
+    		  console.log('onOutgoing Event ===CCCCCCCCCCCCCCC==========?');
+    	  	svcMca.tlb.api.onOutgoingEvent('Phone','service', function (response1) {
+    	  		// console.log('onOutgoingEvent ====> '+response1)
+    	  	  // console.log('Calling: '+response1.SVCMCA_ANI);
+    	  	  // console.log('Contact name: '+response1.SVCMCA_CUSTOMER_NAME);
+    	  	  alert('Initiating outgoing call, see information in the log.');
+    	  	});
+	
+					const handle = window.open("https://bluleap-mediabar.web.app/dialpad.html", "mozillaWindow", 'popup');
+    		} else {
+    		  alert('Operation finished with error: ' + response.error);
+    		}
+	
+			});
+		}
+	}
+
+
+
+	var setReady = () => {
+		console.log('ready call')
+    svcMca.tlb.api.readyForOperation(true, function (response) {
+      if (response.result == 'success') {
+        alert('Success To ready');
+
+      } else {
+        alert('Operation finished with error: ' + response.error);
+      }
+    });
+  }
+</script>
