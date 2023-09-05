@@ -2314,7 +2314,7 @@
 
 
         function atmoSubscribeCallback(uniqueUserName) {
-            liveConn.publish(JSON.stringify({ author: 'alan.hooper_204', message: 'alan.hooper_204', data: "{'source': 'vToolbar'}", action: constants.actions.LOGIN_ACTION }));
+            liveConn.publish(JSON.stringify({ author: "alan.hooper_204", message: "alan.hooper_204", data: "{'source': 'vToolbar'}", action: constants.actions.LOGIN_ACTION }));
         }
 
         function configureAgentInfo() {
