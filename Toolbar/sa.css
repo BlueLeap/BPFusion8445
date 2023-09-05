@@ -1,0 +1,238 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+.row-dialer {
+    text-align: center;
+    font-family: inherit;
+  }
+  
+  .digit,
+  .dig {
+    float: left;
+    padding: 10px 30px;
+    width: 56px;
+    font-size: 2rem;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    margin: 7px;
+    border-radius: 5px;
+  }
+  
+  .sub {
+    font-size: 0.8rem;
+    color: grey;
+  }
+  
+  .container-dialer {
+    background: #fff;
+    width: 400px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    float: left;
+  }
+  
+  #output {
+    font-family: inherit;
+    font-size: 30px;
+    height: 60px;
+    font-weight: bold;
+    color: #1c5736;
+    line-height: 60px;
+  }
+  
+  #call {
+    /* display: inline-block; */
+    background-color: #66bb6a;
+    padding: 4px 30px;
+    margin: 10px;
+    color: white;
+    border-radius: 4px;
+    float: left;
+    cursor: pointer;
+    width: 100px;
+    height: 30px;
+    font-size: 28px;
+  }
+  
+  .botrow {
+    margin: 0 auto;
+    width: 280px;
+    clear: both;
+    text-align: center;
+    font-family: 'Exo';
+  }
+  
+  .digit:active,
+  .dig:active {
+    background-color: #e6e6e6;
+  }
+  
+  #call:hover {
+    background-color: #81c784;
+  }
+  
+  .dig {
+    float: left;
+    padding: 5px 20px;
+    margin: 10px;
+    width: 30px;
+    cursor: pointer;
+    background: #d9534f;
+    color: #fff;
+    font-size: 26px;
+  }
+  /* sa ninu */
+  .dialing {
+    border: 1px solid #e0e0e0;
+    margin: 7px;
+    border-radius: 5px;
+  }
+  .align-center,
+  .dialer-wrap-sa {
+    margin: 0 auto; 
+    display: table;
+  }
+  .bg-blue {
+    background: #337ab7 !important;
+  }
+  .action-btns {
+    float: left;
+    width: 100%;
+    margin: 0 0 10px 0;
+    border-top: 1px solid #e0e0e0;
+    padding: 20px 0 0 0;
+  }
+  .action-btns .dig {
+    margin: 3px;
+    padding: 7px;
+  }
+  .float-end {
+    float: right !important;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-grey {
+    color: #c5c5c5 !important;
+  }
+  .calling-sa {
+    border: 1px solid #e0e0e0;
+    min-height: 250px;
+    height: auto;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .calling-sa p {
+    margin: 20px 0;
+    padding: 0;
+    clear: both;
+  }
+  .timer-sa {
+    margin: 0 auto;
+    display: table;
+    padding: 20px 0;
+    font-size: 18px;
+  }
+  .d-flex {
+    display: flex;
+  }
+.call-actions-sa {
+    margin: 0 auto;
+    display: table;
+    padding: 35px 0 0 0;
+}
+.btn-red {
+    background: #d9534f;
+}
+.btn-green {
+    background: #4caf50;
+}
+.btn {
+    padding: 10px 20px;
+    margin: 0 3px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 17px;
+}
+.agent-login-sa label.lbl-class {
+  width: 120px;
+  color: #000;
+  font-size: 14px;
+  padding-top: 10px;
+  float: left;
+  text-align: left;
+  padding-right: 20px;
+}
+.agent-login-sa input,
+.agent-login-sa textarea,
+.agent-login-sa select {
+  float: left;
+  display: block;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  border-radius: 3px;
+  width: 100%;
+}
+.form-row {
+  margin: 0 0 10px 0;
+  float: left;
+  width: 100%;
+}
+.btn-sa {
+  background-color: #3498db;
+  display: inline-block;
+  padding: 8px 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  border-color: #3498db;
+  border-radius: 3px;
+  border-style: solid;
+  margin-right: 10px;
+}
+.text-right {
+  text-align: right;
+}
+.mt-15 {
+  margin-top: 15px;
+}
+.agent-login-wrap {
+  background: #fff;
+  width: 400px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  float: left;
+}
+.chk-lbl {
+  text-align: left;
+  float: left;
+}
+input.input-chk {
+  width: auto;
+  margin-right: 10px;
+}
+.spinner {
+  display: flex;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.40);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.spinner svg {
+  animation: rotator 1.4s linear infinite;
+}
