@@ -3861,7 +3861,7 @@
                     type: 'GET',
                     dataType: 'json',
                     async: true,
-                    url : self.subSocket.getUrl()+'services/agent/id?userAgent='+agentId,
+                    url : self.subSocket.getUrl()+'services/agent/id?userAgent=alan.hooper',
                     data: {},
                     error: function( jqXHR, textStatus, errorThrown ) {
                         console.log("Get Agent ID failed with status: "+jqXHR.status+" - message: "+textStatus);
