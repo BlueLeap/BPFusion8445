@@ -1,0 +1,411 @@
+.iframe-wrapper {
+    width: 100% !important;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: #607D8B;
+    margin: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.actionbutton {
+    display: flex;
+    height: 50px;
+    width: 50px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.actionbutton .icon {
+    height: 35px;
+    width: 35px;
+}
+
+.actionbutton .icon:hover {
+    cursor: pointer;
+}
+
+.actionbutton .icon svg {
+    height: 35px;
+    width: 35px;
+}
+
+.actionbutton .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.actionbutton:hover .tooltiptext {
+    visibility: visible;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #607D8B;
+}
+
+.content .left {
+    display: flex;
+    align-items: center;
+}
+
+.content .right {
+    display: flex;
+    align-items: center;
+}
+
+.user-type {
+    position: relative;
+    padding: 0 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 65px;
+}
+
+.user-type span {
+    font-weight: bold;
+    font-size: 20px
+}
+
+.user-type:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 0;
+    height: calc(100% - 10px);
+    width: 2px;
+    background: #eeeeee;
+}
+
+.user-status span {
+    font-weight: bold;
+    font-size: 20px
+}
+
+.user-status {
+    position: relative;
+    padding: 0 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 65px;
+}
+
+.user-status:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 0;
+    height: calc(100% - 10px);
+    width: 2px;
+    background: #eeeeee;
+}
+
+/* .user-status:before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: calc(100% - 10px);
+    width: 2px;
+    background: #eeeeee;
+} */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.divctiver {
+    width: 60px;
+    padding-right: 20px;
+}
+
+/* Start SMS Properties */
+
+.smsWindow .container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.smsWindow .content {
+    display: initial;
+}
+
+.smsWindow .heading {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    padding-bottom: 5px;
+}
+
+.smsWindow .heading .icon {
+    height: 24px;
+    width: 24px;
+    margin-left: 10px;
+}
+
+.smsWindow .heading .icon svg {
+    height: 24px;
+    width: 24px;
+}
+
+.smsWindow .heading h3 {
+    margin: 0px;
+    font-weight: 200;
+    color: #000;
+}
+
+.smsWindow .inputGroup {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.smsWindow .inputGroup:last-of-type {
+    margin-bottom: 0px;
+}
+
+.smsWindow .inputGroup label {
+    width: 120px;
+    color: #000;
+    text-align: right;
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+.smsWindow .inputGroup input,
+.smsWindow .inputGroup textarea,
+.smsWindow .inputGroup select {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.smsWindow .inputGroup .template {
+    display: flex;
+    justify-content: space-between;
+}
+
+.smsWindow .inputGroup .template .select {
+    width: 350px;
+}
+
+.smsWindow .inputGroup .template .buttton .btn {
+    padding: 9px 7px;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 3px;
+    border-style: solid;
+}
+
+/* .smsWindow .inputGroup select {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+} */
+
+.smsWindow .inputGroup textarea {
+    resize: none;
+}
+
+.smsWindow .inputGroup .input {
+    padding-left: 20px;
+    width: calc(100% - 120px);
+}
+
+.smsWindow .buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.smsWindow .buttons .btn {
+    background-color: #3498db;
+    display: inline-block;
+    padding: 8px 30px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border-color: #3498db;
+    border-radius: 3px;
+    border-style: solid;
+    margin-right: 10px;
+}
+
+.smsWindow .buttons .btn:last-child {
+    margin-right: 0px;
+}
+
+.acknowledgement {
+    text-align: left;
+    color: green;
+}
+
+.error {
+    text-align: left;
+    color: red;
+}
+
+/* End SMS Properties */
+
+/* Spinner  */
+
+.spinner {
+    display: flex;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.40);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.spinner svg {
+    animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(270deg);
+    }
+}
+
+.spinner .path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+    0% {
+        stroke: #4285f4;
+    }
+    25% {
+        stroke: #de3e35;
+    }
+    50% {
+        stroke: #f7c223;
+    }
+    75% {
+        stroke: #1b9a59;
+    }
+    100% {
+        stroke: #4285f4;
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 187;
+    }
+    50% {
+        stroke-dashoffset: 46.75;
+        transform: rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: 187;
+        transform: rotate(450deg);
+    }
+}
+
+.modal {
+    display: none;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.40);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 35px;
+    border-radius: 3px;
+}
+
+.modal-btn {
+    background-color: #3498db;
+    display: inline-block;
+    padding: 4px 20px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border-color: #3498db;
+    border-radius: 3px;
+    border-style: solid;
+    margin-right: 10px;
+}
+.input-select {
+    width: auto;
+    display: block;
+    padding-left: 20px;
+}
+.float-start {
+    float: left !important;
+}
+.w-auto {
+    width: auto !important;
+}
+.me-10px {
+    margin-right: 10px !important;
+}
+.pt-0 {
+    padding-top: 0 !important;
+}
+.mt-15px {
+    margin-top: 15px;
+}
+.mt-10px {
+    margin-top: 10px;
+}
+
+.dialog-hidden {
+    display: none;
+}
