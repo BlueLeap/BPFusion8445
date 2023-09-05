@@ -1,0 +1,485 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Agent Page</title>
+    <link rel="stylesheet" href="css/liveWinTelephony.css" type="text/css">
+    <!--link  rel="stylesheet" href="css/dialpad.css" type="text/css" /-->
+    <!--script type="text/javascript" src="js/lib/jquery-2.0.3.min.js"></script-->
+    <script type="text/javascript" src="js/lib/jquery-2.0.3.js"></script>
+    <!--script type="text/javascript" src="js/atmosphere.min.js"></script-->
+    <script type="text/javascript" src="js/atmosphere.js"></script>
+    <script type="text/javascript" id="dynamicLoadScript">
+        (function() {
+            window.dynamicLoadCompleted = false;
+            window.staticLoadCompleted = false;
+            
+            function getParameterByName(name) {
+                var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+                return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+            }
+
+            var oraApiPath = '';
+            var oraOrigin = getParameterByName('oraParentFrame');
+            var oraApiSource = getParameterByName('oraApiSource');
+            
+            console.log('######### [AGENT Live Win Telephony oraParentFrame]: '+oraOrigin);
+            console.log('######### [AGENT Live Win Telephony oraApiSource]: '+oraApiSource);
+            
+            try {
+                //if (oraApiSource.endsWith('.js')) {
+                    //oraApiPath = oraOrigin+oraApiSource;
+                    // HHUANG 08/01/19 fix issue SVC-116523
+                   if (!String.prototype.startsWith) {  //IE 11 polyfill
+    					Object.defineProperty(String.prototype, 'startsWith', {
+    						value: function(search, pos) {
+    							pos = !pos || pos < 0 ? 0 : +pos;
+    							return this.substring(pos, pos + search.length) === search;
+    						}
+    					});
+    				}
+                    
+    				if (oraApiSource && oraApiSource.startsWith("http")) {
+    					oraApiPath = oraApiSource; //handle case where apiSource is loaded from external CDN
+    					
+    					console.log('######### [AGENT Live Win Telephony oraApiSource with http]');
+    				} else {
+                        oraApiPath = oraOrigin+oraApiSource;
+                        console.log('######### [AGENT Live Win Telephony oraApiSource without http]');
+    				}
+    			
+    				console.log('######### [AGENT Live Win Telephony oraApiPath]: '+oraApiPath);
+    				
+                //} else {
+                //    oraApiPath = oraOrigin+oraApiSource+'.js';
+                //}        
+            } catch (e) {
+            	console.log('######### [AGENT Live Win Telephony get oraApiPath]: error!');
+            	
+                console.error(e);
+            }
+            console.log('######### [AGENT Live Win Telephony TOOLBAR API URL]: '+oraApiPath);
+            
+            var currentNode = document.getElementById('dynamicLoadScript');
+            var node = document.createElement('script');
+            node.type = 'text/javascript';
+            node.charset = 'utf-8';
+            node.async = true;
+            node.src = oraApiPath;
+            node.addEventListener('load', function(evt) { 
+                window.dynamicLoadCompleted = true;
+                if (window.staticLoadCompleted && window.dynamicLoadCompleted) {
+                    window.initFullAgent();
+                }
+            }, false);
+            //node.addEventListener('error', function(evt) { alert("Error LOAD"); }, false);
+            node.addEventListener('error', function(evt) { 
+				console.log('#### [Error occured in Live Window Reference Toolbar while loading URL]: '+node.src);
+			}, false);
+            
+            currentNode.parentNode.insertBefore(node, currentNode.nextSibling);
+        })();
+    </script>
+    <!--script type="text/javascript" src="js/fullAgent.min.js"></script-->
+    <!-- script type="text/javascript" src="js/fullAgent.js"></script-->
+    <script type="text/javascript" src="js/liveWinTelephonyAgent.js"></script>
+    <!--script type="text/javascript" src="js/liveWinTelephonyAgentMultiCalls.js"></script-->
+    <script type="text/javascript" >
+        $(document).ready(function() {
+            window.staticLoadCompleted = true;
+            if (window.staticLoadCompleted && window.dynamicLoadCompleted) {
+                window.initFullAgent();
+            }
+        });            
+    </script>    
+</head>
+<body>
+    <div id="mainBar">
+        <!-- HZH LW New MainInfoArea -->
+        <div id="CompanionControl"  style="display:none;">
+                <button id="openCP1" type="button" >Open Companion Tab 1</button>
+                <button id="openCP2" type="button" >Open Companion Tab 2</button>
+                <button id="openCP3" type="button" >Open Companion Tab with URL</button>
+                <input id="companionPanelUrl" type="Text" title="URL"/>
+                <label for="companionPanelTitle">New Companion Tab Title</label>
+                <input id="companionPanelTitle" type="Text" title="New Companion Tab Title"/>
+                <button id="closeCP" type="button" >Close Companion Tab</button>
+                <button id="sendCPMessage" type="button" >Send Message to Companion Tab</button>
+                <input id="companionPanelMessage" type="Text" title="CP Message"/>
+                <button id="newCall" type="button" style="display:none;">New Call</button>
+                <button id="clearIuputs" type="button" style="display:none;">Clear Inputs</button>
+        </div>
+        <div id="outbound" class="mainBarItemStatic">
+            <div class="mainInfoArea">
+                <div class="infoArea1 userSlotInfo"  style="position: relative; z-index: 2;">
+                    <input id="cpCtrlBtn" class="agentIcon agentIconOff" style="position: relative; top:10px;" type="button" title="Click to open/close the Companion Tab control buttons"/>                    
+                    <span class="loggedInUser"></span>
+                </div>
+                <div class="infoArea1 aboutAreaInfo">
+                    <input class="aboutBtn" style="position: relative; top:5px;" id="aboutBtn" type="button" title="About"/>
+                    <input class="unavailBtn" style="position: relative; top:0px;" id="availableBtn" type="button" 
+                         title="Click to become available"/>
+                    <div id="aboutBox" style="position: absolute; top:0px; right:0px; z-index: 3;">
+                        <span id="buildVersion"></span><br/><span id="adminUrl"></span>
+                        <button id="closeAboutBox" style="position: absolute; top: 0px; right: 0px; border: 0px; background-color: #cecfce;">x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!--div id="testingPanel1" class="mainBarItemFlex">
+            <input id="testtext" type="text" value="" />
+         </div-->
+         <!-- div id="testRedirectPanel" class="urlRedirctPanel mainBarItemFlex">
+            <input id="testRedirect" type="button" value="Click to Test Redirect URL" onclick="switchToTestRedirect()"/>
+            <div id="testUrl">
+                <button id="redirecUrlName" type="button" >Redirect URL</button>
+                <input id="redirectUrllink" type="text" value=""/>
+            </div>
+   		</div>
+        <div id="redirectPanel" class="urlRedirctPanel mainBarItemFlex">
+            <div id="urlPanel">
+                <p>Redirect to <a href="http://slc10gma.us.oracle.com:8080/toolbar/index.html">this link</a></p> 
+            </div>
+   		</div-->
+        <div id="testingPanel" class="testingPanel mainBarItemFlex">
+            <input id="testSwitch" type="button" value="Switch to Test" onclick="switchToTestMode()"/>
+            <div id="outboundTest" class="outboundTest">
+                <input type="button" title="Test Dialpad" id="testDialpad" />
+                <input type="button" title="Close Dialpad" id="closeDialpad"/>
+             </div>
+
+            <input id="inboundDataJson" type="text" name="Inbound Data" value="{}" />
+            <input id="initCallSlot" type="button" onclick="initCallSlot()" value="Create call slot"/>
+            <input id="initChatSlot" type="button" onclick="initChatSlot()" value="Create chat slot"/>
+            <input id="reverseLookupFinished" type="text" value="false"/>
+
+            <div id="outboundButtons" style="display:none;">
+                <button id="connBtn" type="button" >Connect</button>
+                <button id="failBtn" type="button" >Fail</button>
+                <button id="accBtn" type="button" >Accept</button>
+                <button id="rejBtn" type="button" >Decline</button>
+            </div>
+            <!--
+            <input type="button" id="showQuery" onclick="showQueryFields()">
+            -->
+            <div id="queryData" class="queryData">
+                <input id="token" type="text" list="tokens" value=""/>
+                <input id="tokenValue" type="text" value=""/>
+                <input id="queryAction" type="button" value="Query" onclick="tlbAgent.queryCustomerData()"/>
+                <datalist id="tokens">
+                    <option value="SVCMCA_SR_NUM">
+                    <option value="SVCMCA_EMAIL">
+                    <option value="SVCMCA_ORG_NAME">
+                </datalist>
+            </div>
+            <div id="testJwt">
+                <button id="jwtBtn" type="button" >JWT</button>
+                <button id="jwtRestBtn" type="button" >REST SR</button>
+                <input id="jwtRestSr" type="text" value=""/>
+                <input id="jwtRestSrResult" type="text" value=""/>
+            </div>
+        </div>
+        <div id="calls" class="mainBarItemFlex"></div>
+    <!-- Old Vertical Bar Area -->
+    <div id="VToolbar" style="display:none;">
+    <div id="vToolbarSlot" class="vToolbarSlot">
+    <div id="closeVToolbar" class="vtEndBtn" style="position: relative;" title="Close" ></div>
+    <div id="mainBarVT">
+    <div id="callsVT" class="mainBarItemFlexVT"></div>
+    </div>
+    
+    <div id="tabs-container" class="tabs-containerVT">
+	    <ul class="tabs-menuVT">
+	        <li class="current"><a id="activateAgents" href="#agentsTabVT">Agents</a></li>
+	        <li><a id="activateDialpad" href="#dialpadTab">Dialpad</a></li>
+	    </ul>
+	    <div class="tabVT">
+	        <div id="agentsTabVT" class="tab-contentVT">
+	           
+	           <input id="searchBox" type="text" class="searchBoxVT" placeholder="Search for Agents" onkeyup="searchAgent(this, 'agentsTabVT')"/>
+	           <div id="startAgentList" class="delimiterVT"></div>
+	        
+	           <input id="agentActionButton" class="agentActionButtonVT" type="button" value="" style="display:none"/>
+	           
+	        </div>
+	        <div id="dialpadTab" class="tab-contentVT">
+	        </div>
+	    </div>
+    </div>    
+    
+        
+    <div id="loggedin"></div>
+    
+    <div id="objectsToCloneVT" class="objectsToCloneVT">
+    
+    
+        <div id="transferAgent" class="callSlotContainerVT delimiterVT">
+            <div class="callerAvatarItemVT">
+                <span class="agentIcon agentIconTransfer" style="position: relative; top:5px;"></span> 
+            </div>
+            <div id="callerId" class="callerInfoItemVT">
+                <div class="callerInfoReg1VT">
+                    <div id="primaryInfo" class="callerItem1VT primaryInfoVT truncateVT"></div>
+                </div>
+            </div>
+
+            <input id="conferenceButton" class="agentActionButtonVT" title="" value="Conference" type="button">
+            <input id="consultButton" class="agentActionButtonVT" title="" value="Consult" type="button">
+            <input id="transferButton" class="agentActionButtonVT" title="Transfer" value="Transfer" type="button">
+        </div>
+    
+        <div id="conferenceAgent" class="callSlotContainerVT delimiterVT">
+            <div class="callerAvatarItemVT">
+                <div class="userIconAgentVT">
+                    <span class="userIconTextAgentVT">?</span>
+                </div>            
+            </div>
+            <div id="callerId" class="callerInfoItemVT">
+                <div class="callerInfoReg1VT">
+                    <div id="primaryInfo" class="callerItem1VT primaryInfoVT truncateVT"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    
+    <div id="dialpad">
+      <section role="main">
+        <div class="dialPad compact">
+          <div class="number">
+            <button id="clearNumbers" class="clearNumber"></button>
+          </div>
+          
+          <br />
+          <div class="dials">
+            <ol>
+              <li class="digits">
+                <p>
+                  <strong>1</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>2</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>3</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>4</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>5</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>6</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>7</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>8</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>9</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>*</strong>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>0</strong><sup>+</sup>
+                </p>
+              </li>
+              <li class="digits">
+                <p>
+                  <strong>#</strong>
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+      <div class="center">
+         <input id="callButton" class="callButton" type="button" value="Call"/>
+      </div>
+  </div>
+    </div>
+</div>    
+    </div>   
+    <div id="objects_to_clone" style="display:none;">
+        <div id="toolbar" class="callSlot">
+            <div class="callSlotContainer">
+                <div class="callerAvatarItem">
+                    <!--div class="callIcon inboundCall"></div-->
+                    <div class="userIcon">
+                        <img class="phoneIcon" src="images/phone_32.png" />
+                        <img class="phoneHold" src="images/phone_32.png" />
+                        <img class="chatIcon" src="images/qual_personchat_32.png" />
+                    </div>            
+                </div>
+                <div id="callerId" class="callerInfoItem">
+                    <div class="callerInfoReg1">
+                        <div id="primaryInfo" class="callerItem1 primaryInfo truncate"></div>
+                        <div id="secondaryInfo" class="callerItem2 secondaryInfo truncate" ></div>
+                    </div>
+                    <div class="callerInfoReg2">
+                        <div class="callerBtnReg1 timer">
+                            <span id="phoneEvent"></span>
+                            <div style="float:right; padding-right: 10px;" >
+                                <div class="timerBtn" style="width: 24px; height: 28px;">
+                                    <div id="hold" class="holdBtn" style="position: relative; left: -6px; z-index: 2; display: block;" title="Hold" >
+                                    </div>
+                                </div>
+                                <div class="timerBtn" style="width: 95px; height: 28px;">
+                                    <div class="timerBox" style="position: relative; z-index: 1;">
+                                        <span id="timer" style="position: relative; top:2px;"></span>
+                                    </div>
+                                </div>
+                                <!--div class="timerBtn" style="width: 18px; height: 18px; padding-left: 8px;">
+                                    <div id="end" class="endBtn" style="position: relative;" title="End" >
+                                    </div>
+                                </div-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="callSlotControlContainer">
+             <div class="callSlotControlFiller">
+                 <div class="emptyBtn">
+                 </div>
+                 <div class="emptyBtn1">
+                 </div>
+             </div>
+            <div class="callSlotControlBtns">
+	            <div id="toolbarControl" class="callerBtnReg2" >
+	                    <input id="accept" class="callerBtnItem ringBtn acceptBtn" type="button" title="Accept" value="Accept" />
+	                    <div id="btnSep1" class="callerBtnItem" style="width: 6px; height: 10px;"></div>
+	                    <input id="reject" class="callerBtnItem ringBtn rejectBtn" type="button" title="Decline" value="Decline" />
+	                    <input id="conference" class="callerBtnItem ongoingBtn confBtn" type="button" title="Conference"/>
+	                    <input id="transfer" class="callerBtnItem ongoingBtn transBtn" type="button" title="Transfer" />
+	                    <input id="compTransfer" class="callerBtnItem ongoingBtn compTransBtn" type="button" title="Complete Transfer" />
+	                    <!--div id="btnSepOngoing" class="callerBtnItem" style="width: 76px; height: 10px;"></div-->
+	                    <!--div id="btnSepEnd" class="callerBtnItem" style="width: 4px; height: 10px;"></div-->
+	                    <div id="end" class="endBtn" style="position: relative;" title="End" ></div>
+	            </div>
+            </div> 
+            </div>          
+        </div>
+    </div>
+     <div id="newCallContainer" class="tabs-containerVT" style="display:none;">
+      <div class="newCallDialSpace">
+      </div>
+      <div class="callSlotContainer">
+          <div class="callerAvatarItem">
+              <div class="userIcon">
+                   <img class="phoneHold" src="images/phone_32.png" />
+              </div>            
+          </div>
+          <div id="newCallTitleId" class="callerInfoItem">
+              <div class="callerInfoReg1">
+                  <div id="newCallTitleInfo" class="callerItem1 newCallTitleInfo">New Call</div>
+              </div>
+          </div>
+      </div>  
+     <div class="newCallDialSpace">
+     </div>
+     <div id="newCallDialpad">
+      <section role="main">
+        <div class="dialPad compact">
+          <div class="newCallNumber">
+            <button id="clearNewCallNumbers" class="clearNumber"></button>
+          </div>          
+          <br />
+          <div class="newCallDials" style="position: relative; left: 30px;">
+            <ol>
+              <li class="newCallDigits">
+                <p>
+                  <strong>1</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>2</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>3</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>4</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>5</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>6</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>7</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>8</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>9</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>*</strong>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>0</strong><sup>+</sup>
+                </p>
+              </li>
+              <li class="newCallDigits">
+                <p>
+                  <strong>#</strong>
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+      <div class="center" style="position: relative; left: 30px;" >
+         <input id="newCallButton" class="callButton" type="button" value="Call"/>
+         <input id="cancelNewCall" class="callButton" type="button" value="Cancel"/>
+      </div>
+  </div>
+  </div>
+</body>
+</html>
