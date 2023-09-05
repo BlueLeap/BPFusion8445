@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blueleap2</title>
+  <link rel="stylesheet" href="sa.css">
+  <link rel="stylesheet" href="custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script type="text/javascript">
+    //Set the JabberWerx connect to unsecure because the custom authentication
+    //on the XMPP server does not support encrypted credentials.
+    var jabberwerx_config = { unsecureAllowed: true };
+  </script>
+
+  <!-- Import jQuery library which is used do DOM manipulation and make Ajax requests -->
+  <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+
+  <!-- Uses the Cisco AXL library (aka JabberWerx) to setup and receive events -->
+  <script type="text/javascript" src="jabberwerx.js"></script>
+  <script type="text/javascript" src="config.js"></script>
+ 
+  <!-- Load the sample Finessenongadget sample which showcase examples of making requests. -->
+  <script type="text/javascript" src="finessenongadget.js"></script>
+    
+  <!-- Load core page controller JS to bind buttons and show/hide appropriate UI elements -->
+  <script type="text/javascript" src="sample.js"></script>
+</head>
+
+<body class="flex items-center justify-center p-8">
+  <div class="border rounded-lg flex flex-col gap-8 items-center justify-center px-6 pt-16 pb-6 lg:w-1/4 md:w-1/3 sm:w-1/2">
+    <div class="flex flex-col gap-2 items-center justify-center">
+      <span class="text-3xl font-semibold">Agent Login</span>
+      <span class="text-md">Enter Finesse Agent ID, Password, Extention</span>
+    </div>
+    <input type="text" id="field-agentid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Agent ID" required>
+    <input type="password" id="field-password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Password" required>
+    <input type="text" id="field-extension" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Extention" required>
+    <div class="w-full items-start ml-1">
+      <div class="flex items-center mb-4">
+        <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4">
+        <label for="default-checkbox" class="ml-2 text-sm">Default checkbox</label>
+      </div>
+    </div>
+    <div class="flex w-full items-end justify-end gap-4">
+      <button type="button" id="signin" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2.5 text-center text-lg">Send</button>
+      <button type="button" id="cancel" class="text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-10 py-2.5 text-center text-lg">Cancel</button>
+    </div>
+  </div>
+</body>
+
+ 
+
+
+
+<script>
+  // document.getElementById('spin').style.display = "none"; // spinner is not displayed
+
+  $("#signin").click(function(){
+    agentSignInClickHandler()
+  })
+  $("#cancel").click(function(){
+    closePopup()
+  })
+
+  function agentSignInClickHandler() {
+    console.log("agentSignIn called")
+
+    _username = $("#field-agentid").val();
+    _password = $("#field-password").val();
+    _extension = $("#field-extension").val();
+
+    if (!_username || !_password || !_extension || !_domain) {
+        console.log(_username, _password)
+        console.log(_extension)
+        alert("Please enter valid credentials.");
+    } else {
+      // document.getElementById('spin').style.display = "block";
+        function failure(){
+          alert("Login failed.");
+          // document.getElementById('spin').style.display = "none"; // spinner is not displayed
+        }
+
+        function success(){
+          console.log("Success callback here")
+          // document.getElementById('spin').style.display = "none"; // spinner is not displayed
+          localStorage.setItem('user', _username)
+          window.close();
+          // closePopup()
+        }
+        agentSignIn(_username,_password,_extension,success,failure)
+        
+    }
+}
+
+
+function closePopup(){
+
+  ORACLE_SERVICE_CLOUD.extension_loader.load("BL1" , "1")
+  .then(function(extensionProvider)
+    {
+      extensionProvider.registerUserInterfaceExtension(function(IUserInterfaceContext)
+          {
+          IUserInterfaceContext.getPopupWindowContext().then(function(IPopupWindowContext)
+              {
+              var popupWindows;
+              IPopupWindowContext.getCurrentPopupWindows().then(function(currentPopupWindows)
+                  {
+                  popupWindows = currentPopupWindows;
+                  console.log(popupWindows)
+                  // Perform some operations on popupWindows.
+                  if (popupWindows[0].id == "LoginPopupWindow")
+                      popupWindows[0].close()
+                  });
+              });
+          });
+      });      
+
+}
+</script>
+
+</html>
