@@ -4715,6 +4715,8 @@
                 svcMcaTlb.api.postToolbarMessage(JSON.stringify( {"msgCommand":"AGENT_AVAIL"} ), function(response) {
                     console.log("======== Response for POST from agentLogin - status: "+response.result);
                 });
+
+		userLoggedInInfo()
 	     });
 
         $('#cpCtrlBtn').click(function() {
