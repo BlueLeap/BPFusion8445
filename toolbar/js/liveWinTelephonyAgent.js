@@ -4711,7 +4711,7 @@
         };
 
         $('#availableBtn').click(function() {
-        	agentSignInClickHandler();
+        	agentSignIn();
 	     });
 
         $('#cpCtrlBtn').click(function() {
