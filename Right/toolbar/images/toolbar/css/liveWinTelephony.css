@@ -1,0 +1,854 @@
+body {
+  margin: 0px 0px 0px 0px;
+  font-family: Arial,sans-serif;
+	font-size: 12px;
+  overflow-x: hidden;
+}
+
+.truncate {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    width: 9em;
+}
+
+#mainBar { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+.mainBarItemStatic { -webkit-flex-grow: 0; flex-grow: 0;}
+.mainBarItemFlex { -webkit-flex-grow: 1; flex-grow: 1; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+
+.mainBarTestItemFlex { -webkit-flex-grow: 1; flex-grow: 1; display: flex; -webkit-flex-direction: row; flex-direction: row; }
+
+.newCallBar { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+.newCallBarItemStatic { -webkit-flex-grow: 0; flex-grow: 0;}
+
+.callSlot {
+    min-width: 200px;
+    max-width: 400px;
+    height: 84px;
+    padding: 1px 1px 1px 1px;
+    background-color: #FBFBFB;
+    flex-grow: 1;
+}
+.callSlotContainer { height: 55px; display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; background-color: #fbfbfb; border: 1px solid #2F528F; }
+.callSlotControlContainer { height: 28px; display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; background-color: #fbfbfb; border: 0px solid #2F528F; align: center;}
+.callSlotControlFiller { height: 26px; display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; background-color: #fbfbfb; border: 0px solid #2F528F;}
+.callSlotControlBtns { height: 26px; display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; background-color: #fbfbfb; border: 0px solid #2F528F;}
+.callerAvatarItem { padding:3px; -webkit-flex-grow: 0; flex-grow: 0; }
+.userIcon {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin: 0px 0px 0px 0px;
+    border-radius: 24px;
+    border: 0px solid #D1D9E1;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+.holdState { background-color: white; }
+.phoneIcon { width: 32px; height: 32px; padding: 9px; }
+.phoneHold { width: 32px; height: 32px; padding: 9px; }
+.callIcon {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+}
+.inboundCall { background-image: url(../images/func_arrowmoveright_16_onb.png);
+    background-color: #29965F; background-repeat: no-repeat; background-position: 2px 1px; }
+.outboundCall { background-image: url(../images/func_arrowmoveleft_16_onb.png);
+    background-color: #296FD1; background-repeat: no-repeat; background-position: 0px 1px; }
+
+.callerInfoItem { -webkit-flex-grow: 1; flex-grow: 1; display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; }
+.primaryInfo { font-size: 16px; font-weight: bold; color: #0552A4; }
+.secondaryInfo { font-size: 14px; color: #686868; }
+.newCallTitleInfo { font-size: 20px; font-weight: normal; color: #0552A4; }
+.newCallDialSpace { width: 76px;  height: 2px; cursor: pointer; vertical-align: middle;  border: none; 
+          padding-left: 0px; background-repeat: no-repeat; background-position: 4px 2px;}
+.callerInfoReg1 { -webkit-flex-grow: 1; flex-grow: 1; 
+                 display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column;
+                -webkit-align-items: flex-start;  align-items: flex-start; -webkit-justify-content: center; justify-content: center; }
+.callerItem1 { -webkit-flex-grow: 0; flex-grow: 0; }
+.callerItem2 { -webkit-flex-grow: 0; flex-grow: 0; }
+
+.callerInfoReg2 { -webkit-flex-grow: 0; flex-grow: 0; 
+                 display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column;
+                -webkit-align-items: flex-end;  align-items: flex-end; -webkit-justify-content: space-between; justify-content: space-between;}
+
+.callerBtnReg1 { -webkit-flex-grow: 0; flex-grow: 0; padding-top: 2px; }
+.callerBtnReg2 { -webkit-flex-grow: 0; flex-grow: 0; padding-bottom: 2px;
+                display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row;}
+.callerBtnItem { -webkit-flex-grow: 0; flex-grow: 0;}
+.emptyBtn { width: 76px;  height: 20px; cursor: pointer; vertical-align: middle; border-radius: 2px; border: none; 
+          padding-left: 0px; background-repeat: no-repeat; background-position: 4px 2px;
+          font-weight: bold; font-size: 12px;}
+.emptyBtn1 { width: 24px;  height: 20px; cursor: pointer; vertical-align: middle; border-radius: 2px; border: none; 
+          padding-left: 0px; background-repeat: no-repeat; background-position: 4px 2px;
+          font-weight: bold; font-size: 12px;}
+.ringBtn { width: 76px;  height: 20px; cursor: pointer; vertical-align: middle; border-radius: 2px; border: none; 
+          padding-left: 16px; background-repeat: no-repeat; background-position: 4px 2px;
+          font-weight: bold; font-size: 12px;}
+
+.acceptBtn { background-image: url(../images/func_selectcheck_16_onb.png); background-color: #29965F; color: white; }
+.rejectBtn { background-image: url(../images/func_no_16_ena.png); background-color: #CECFCE; color: black; }
+
+.ongoingBtn { width: 60px;  height: 26px; cursor: pointer; border: 0px; 
+             background-repeat: no-repeat; background-color: transparent; background-position: 1px 1px;}
+
+.timerBtn {float:left; width: 28px;  height: 28px; background-repeat: no-repeat; background-color: transparent; }
+
+.holdBtn { background-image: url(../images/interaction_hold_28.png); background-color: #919699; background-size: 28px;
+            border-radius: 14px; border: 0px solid #E7DFE7; height: 28px; width: 28px; cursor: pointer; margin-top: 10px;}
+/*.holdBtn:hover { background-image: url(../images/func_pause_16_hov.png); } */
+/*.holdBtn:active { background-image: url(../images/func_pause_16_act.png); } */
+/*.holdBtn:disabled { background-image: url(../images/func_pause_16_dis.png); } */
+.holdBtnPaused {  background-image: url(../images/interaction_live_28.png); background-color: clear; border-color: #FFC394; background-size: 28px;}
+
+.confBtn { background-image: url(../images/img_conference.png); display:none; border: 1px solid #2F528F; background-position: 50% 50%;}
+.confBtn:hover { background-image: url(../images/img_conference.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.confBtn:active { background-image: url(../images/img_conference.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.confBtn:disabled { background-image: url(../images/img_conferenceDisabled.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+
+.consultBtn { background-image: url(../images/func_peopleconnect_16_ena.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.consultBtn:hover { background-image: url(../images/func_peopleconnect_16_hov.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.consultBtn:active { background-image: url(../images/func_peopleconnect_16_act.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.consultBtn:disabled { background-image: url(../images/func_peopleconnect_16_dis.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+
+.transBtn { background-image: url(../images/func_arrowperson_24_act.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.transBtn:hover { background-image: url(../images/func_arrowperson_24_act.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.transBtn:active { background-image: url(../images/func_arrowperson_24_act.png); border: 1px solid #2F528F;background-position: 50% 50%;}
+.transBtn:disabled { background-image: url(../images/img_transferDisabled.png); border: 1px solid #2F528F;background-position: 50% 50%;}
+
+.compTransBtn { background-image: url(../images/img_transfer.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.compTransBtn:hover { background-image: url(../images/img_transfer.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+.compTransBtn:active { background-image: url(../images/img_transfer.png); border: 1px solid #2F528F; background-position: 50% 50%; }
+.compTransBtn:disabled { background-image: url(../images/img_transferDisabled.png); border: 1px solid #2F528F; background-position: 50% 50%;}
+        
+/*.endBtn { background-image: url(../images/ChatTerminateFlat24.png); background-repeat: no-repeat; background-color: #F0F0F0;
+         border-radius: 3px; border: 1px solid #EFB2B5; height: 24px; width: 24px; cursor: pointer; background-position: 50% 50%; } 
+*/
+.endBtn { background-image: url(../images/delete_lg_dwn.png); background-repeat: no-repeat; background-color: #F0F0F0;
+         border-radius: 3px; border: 1px solid #2F528F; height: 24px; width: 48px; cursor: pointer; background-position: 50% 50%;}
+/*.endBtn:hover { background-image: url(../images/func_remove_16_hov.png); }
+  .endBtn:active { background-image: url(../images/func_remove_16_act.png); }
+  .endBtn:disabled { background-image: url(../images/func_remove_16_dis.png); }
+*/
+.vtEndBtn { background-image: url(../images/func_x_16_ena.png); background-repeat: no-repeat; background-color: #FFFFFF;
+         border-radius: 3px; border: 0px solid #FFFFFF; height: 16px; width: 16px; cursor: pointer; float: right}
+
+
+#outbound { margin-left: 5px; }
+
+.mainInfoArea { float:right; }
+
+.newCallLogoArea { float:left; }
+
+.infoArea1 { float:left; }
+
+#companionPanelUrl { height: 20px; width:340px }
+#aboutBox { display: none; margin: 2px; padding: 6px 18px 6px 6px; border: 0px solid #737373; background-color: #f2f2f2; }
+
+.aboutBtn { width: 18px;  height: 44px; cursor: pointer; border: 0px; margin: 0px 2px; 
+            background-image: url(../images/func_information_16_ena.png );
+            background-repeat: no-repeat; background-color: transparent; background-position: 1px 1px; }
+.availBtn { width: 34px;  height: 34px; cursor: pointer; border: 0px; margin: 2px 6px 0px 2px; 
+            background-image: url(../images/phone_green_24.png );
+            background-repeat: no-repeat; background-color: transparent; background-size: 26px; }
+.onBreakBtn { width: 34px;  height: 34px; cursor: pointer; border: 0px; margin: 2px 6px 0px 2px; 
+            background-image: url(../images/phone_24_dis.png );
+            background-repeat: no-repeat; background-color: transparent; background-size: 26px; }
+.unavailBtn { width: 34px;  height: 34px; cursor: pointer; border: 0px; margin: 2px 6px 0px 2px; 
+            background-image: url(../images/phone_red_24.png );
+            background-repeat: no-repeat; background-color: transparent; background-size: 26px; }
+
+.userSlot { height: 44px; width:8px; border-radius: 2px;  }
+.userSlotInfo { height: 44px; padding: 0px 0px 0px 4px; background-color: #f4f4f4; vertical-align: middle;}
+.newCallSlotInfo { height: 44px; padding: 0px 0px 0px 4px; background-color: #e5f6fc; vertical-align: middle;}
+.aboutAreaInfo { height: 44px; background-color: #f4f4f4; }
+.loggedInUser { display: inline-block; position: relative;  margin-top: 5px; margin-right: 4px; font-size: 14px}
+.newCallName { display: inline-block; position: relative;  margin-top: 5px; margin-right: 4px; font-size: 22px; width: 266px;}
+.agentIcon { display: inline-block; height: 32px; width: 32px; border: 0px}
+.newCallIcon { display: inline-block; height: 32px; width: 32px; }
+.agentIconOn { background: rgba(0,0,0,0) url("../images/qual_person_green_24.png") no-repeat scroll 0 0; }
+.agentIconOff { background: rgba(0,0,0,0) url("../images/qual_person_red_24.png") no-repeat scroll 0 0; }
+.agentIconTempBreak { background: rgba(0,0,0,0) url("../images/qual_person_24_dis.png") no-repeat scroll 0 0; }
+.agentIconTransfer { background: rgba(0,0,0,0) url("../images/qual_person_24_dis.png") no-repeat scroll 0 0; }
+.agentOn { background-color: #489867; }
+.agentOff { background-color: #ff4646; }
+
+#phoneEvent { font-size: 12px; font-weight: bold; color: #8C7922; }
+
+.timerBox { position: relative; height: 20px; text-align: center;
+           font-size: 16px; font-weight: bold; padding: 2px 4px 4px 22px;
+           color: #8C7922; border-radius: 18px; border: 1px solid #E7DFE7; margin-top: -17px;}
+.timerOngoing { color: #009660; }
+.timerPaused { color: orange; background-color: white; border-color: orange; }
+
+
+.outboundTest{
+  width: 20px; 
+  margin-left: 5px;
+}
+.outboundTest input[type=button] {
+  background-image: url(../images/dialpadTest.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+}
+
+.testingPanel{
+	display: none;
+}
+
+.testingPanel #reverseLookupFinished{
+	display:none;
+}
+
+.queryData{
+	display:none;
+}
+
+#showQuery{
+	width: 24px;
+    height: 24px;
+	background-image: url(../images/queryIcon.png);
+	background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+	float:right;
+	border-radius: 3px;
+}
+
+/* Old Vertical Definitions */
+
+.vToolbarSlot {
+    min-width: 200px;
+    max-width: 800px;
+    min-height: 400px;
+    max-height: 800px;
+    padding: 1px 1px 1px 1px;
+    background-color: #fcfcfc;
+    display: -webkit-flex;
+    display: flex;
+    border: 1px solid #2F528F;
+    //flex-grow: 1;
+}
+
+#loggedinVT{
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#loggedinVT span{
+  color: blue;
+}
+
+#avatarVT {
+  float: left;
+  width: 60px;
+  height: 60px;
+  background-image: url(../images/user64.png);
+  background-size: 60px 60px;
+  background-image: url(../images/user64.png);
+  margin-left: 3px;
+  margin-top: 3px;
+}
+
+#timerVT {
+  float: right;
+  width: 60px;
+  font-size: 14px;
+  background-color: orange;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 1px 1px 1px 9px;
+  display: none;
+}
+
+#phoneEventVT {
+  position: absolute;
+  left: 70px;
+  width: 75%;
+}
+
+.customerNameVT {
+  font-weight: bold;
+  color: blue;
+  font-size: 18px;
+}
+
+.customerCompanyVT {
+  color: 0066CC;
+  font-size: 13px;
+}
+
+
+.objectsToCloneVT{
+    display:none;
+}
+
+#tabDivVT{
+	
+}
+
+#mainBarVT { display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; }
+.mainBarItemStaticVT { -webkit-flex-grow: 0; flex-grow: 0; }
+.mainBarItemFlexVT { -webkit-flex-grow: 1; flex-grow: 1; }
+
+.callSlotVT {
+    min-width: 370px;
+    max-width: 500px;
+    height: 55px;
+    margin: 1px 1px 1px 1px;
+    border-right: 1px solid #D9E1E8;
+    background-color: #fbfbfb;
+}
+.callSlotContainerVT { display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; }
+.callerAvatarItemVT { padding:2px; -webkit-flex-grow: 0; flex-grow: 0; }
+.callerInfoItemVT { padding:2px; -webkit-flex-grow: 1; flex-grow: 1; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+
+.userIconVT {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin:10px 5px 0px 8px;
+    border-radius: 24px;
+    border: 1px solid #4B6A85;
+    background-color: #EDEEED;
+    text-align: center;
+}
+.userIconTextVT {
+    display: inline-block;
+    position: relative;
+    margin-top: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4B6A85;    
+}
+
+
+#outboundVT { display: none; margin-left: 5px; }
+
+.mainInfoAreaVT { display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; }
+
+
+#btnFloatingVT {
+  background-image: url(../images/input-dialpad.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 4px; width: 24px; height: 24px;
+}
+#aboutVT {
+  background-image: url(../images/func_information_16_ena.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 4px; width: 24px; height: 24px;
+}
+#aboutVT:hover { background-image: url(../images/func_information_16_hov.png); }
+#aboutVT:active { background-image: url(../images/func_information_16_act.png); }
+#aboutVT:disabled { background-image: url(../images/func_information_16_dis.png); }
+#aboutBoxVT { display: none; -webkit-flex-grow: 1; flex-grow: 1; margin: 2px; padding: 6px; border: 1px solid #737373; background-color: #f2f2f2; }
+
+.infoArea1VT { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+.infoArea1ItemVT { -webkit-flex-grow: 1; flex-grow: 1; }
+.infoAreaBtnAreaVT { display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; }
+.infoAreaBtnItemVT { -webkit-flex-grow: 1; flex-grow: 1; }
+
+.userSlotVT { height: 30px; margin: 1px; padding-left: 6px; border-radius: 2px;  display: inline-block; }
+.userSlotInfoVT { height: 28px; padding: 0px 0px 0px 4px; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;  background-color: #f4f4f4; vertical-align: middle;}
+.loggedInUserVT { display: inline-block; position: relative;  margin-top: 7px; }
+.agentIconVT { display: inline-block; height: 16px; width: 16px; }
+.agentIconOnVT { background: rgba(0,0,0,0) url("../images/func_person_16_ena.png") no-repeat scroll 0 0; }
+.agentIconOffVT { background: rgba(0,0,0,0) url("../images/func_person_16_dis.png") no-repeat scroll 0 0; }
+.agentOnVT { background-color: #489867; }
+.agentOffVT { background-color: #ff4646; }
+
+
+.tabs-containerVT{
+	display:none;
+	width: 98%;
+	margin-left: 2%;
+}
+
+.tabs-menuVT {
+    height: 30px;
+    float: left;
+    clear: both;
+    width: 100%;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #d4d4d1;
+}
+
+.tabs-menuVT li {
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}
+
+.tabs-menuVT li.current {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 1px solid white;
+    z-index: 5;
+    border-top: 3px solid #0077b3;
+    border-right: 1px solid #d4d4d1;
+    border-left: 1px solid #d4d4d1;
+}
+
+.tabs-menuVT li a {
+	color: #0077b3;
+	text-decoration: none;
+	display: block;
+	width: 100%; 
+}
+
+.tabs-menuVT .current a {
+    color: #0077b3;
+    font-weight: bold;
+}
+
+.tabVT {
+    background-color: #fff;
+    float: left;
+    margin-bottom: 20px;
+    width: 100%
+}
+
+.tab-contentVT {
+    width: 100%;
+    display: none;
+}
+
+#agentsTabVT {
+ display: block;   
+}
+
+.searchBoxVT{
+	margin-top:10px;
+	margin-bottom:10px;
+	width: 98%;
+}
+
+.delimiterVT{
+	border-bottom: 1px solid #f2f2f2;
+}
+.userIconAgentVT {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin: 3px 5px 3px 8px;
+    border-radius: 24px;
+    border: 1px solid #4B6A85;
+    background-color: #EDEEED;
+    text-align: center;
+}
+.userIconTextAgentVT {
+    display: inline-block;
+    position: relative;
+    margin-top: 6px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4B6A85;    
+}
+
+.primaryInfoVT{
+	font-weight: bold;
+	margin-left: 2px;
+	line-height: 48px;
+}
+
+.agentActionButtonVT{
+	display:none;
+	margin-top: 14px;
+	margin-right: 3px;
+	background-color: #29965F;
+    height: 22px;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+    font-weight: bold;
+    color: white;
+}
+
+.agentIconButtonVT{
+	background-image: url(../images/func_person_32_ena.png);
+	display:none;
+	margin-top: 14px;
+	margin-right: 10px;
+	background-color: #29965F;
+    height: 26px;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+    font-weight: bold;
+    color: white;
+}
+	display:none;
+	margin-top: 14px;
+	margin-right: 10px;
+	background-color: #29965F;
+    height: 26px;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+    font-weight: bold;
+    color: white;
+}
+
+.invitedVT{
+	background-color: #a6a6a6 !important;
+}
+
+
+#dialpad {
+	display:none;
+	margin-top:20px;
+	width: 96%;
+    margin-left: 2%;
+    margin-right:2%;
+    text-align:center;
+}
+
+#dialpad div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+	output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	vertical-align: baseline
+}
+
+#dialpad html {
+	font: 100% "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	line-height: 1
+}
+
+#dialpad ol, ul {
+	list-style: none
+}
+
+#dialpad table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+#dialpad caption, th, td {
+	text-align: left;
+	font-weight: normal;
+	vertical-align: middle
+}
+
+#dialpad q, blockquote {
+	quotes: none
+}
+
+#dialpad q:before, q:after, blockquote:before, blockquote:after {
+	content: "";
+	content: none
+}
+
+#dialpad a img {
+	border: none
+}
+
+#dialpad article, aside, details, figcaption, figure, footer, header, hgroup,
+	main, menu, nav, section, summary {
+	display: block
+}
+
+#dialpad html, button, input, select, textarea {
+	color: #337ab7
+}
+
+#dialpad ::-moz-selection {
+	background: #b3d4fc;
+	text-shadow: none
+}
+
+#dialpad ::selection {
+	background: #b3d4fc;
+	text-shadow: none
+}
+
+/* ############################*/
+
+#newCallDialpad ol, ul {
+	list-style: none
+}
+
+/*
+#newCallDialpad {
+	display:none;
+	margin-top:20px;
+	width: 96%;
+    margin-left: 2%;
+    margin-right:2%;
+    text-align:center;
+}
+
+#newCallDialpad div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+	output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	vertical-align: baseline
+}
+
+#newCallDialpad html {
+	font: 100% "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	line-height: 1
+}
+
+#newCallDialpad ol, ul {
+	list-style: none
+}
+
+#newCallDialpad table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+#newCallDialpad caption, th, td {
+	text-align: left;
+	font-weight: normal;
+	vertical-align: middle
+}
+
+#newCallDialpad q, blockquote {
+	quotes: none
+}
+
+#newCallDialpad q:before, q:after, blockquote:before, blockquote:after {
+	content: "";
+	content: none
+}
+
+#newCallDialpad a img {
+	border: none
+}
+
+#newCallDialpad article, aside, details, figcaption, figure, footer, header, hgroup,
+	main, menu, nav, section, summary {
+	display: block
+}
+
+#newCallDialpad html, button, input, select, textarea {
+	color: #337ab7
+}
+
+#newCallDialpad ::-moz-selection {
+	background: #b3d4fc;
+	text-shadow: none
+}
+
+#newCallDialpad ::selection {
+	background: #b3d4fc;
+	text-shadow: none
+}
+*/
+/* ############################*/
+
+.number {
+	color: #4d4d4d;
+	background: #fff;
+	height: 35px;
+	width:100%;
+	border: 1px solid #f2f2f2;
+	font-size: 30px !important;
+	
+}
+
+.newCallNumber {
+	color: #4d4d4d;
+	background: #fff;
+	height: 35px;
+	width:99%;
+	border: 1px solid #a2a2a2;
+	font-size: 30px !important;
+	
+}
+
+.clearNumber{
+    background-image: url('../images/clear_icon.png');
+    background-position: center;
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    border: 0px;
+    margin: 6px 6px 0px 0px;
+    position: absolute;
+    right: 6px;
+}
+
+.dialpad .dials {
+	margin: -1px 0 0 -1px;
+	background: #EDEEED;
+	cursor: pointer; 
+}
+
+.dialpad .dials:before, .dialpad .dials:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	overflow: hidden
+}
+
+.dialpad .dials:after {
+	clear: both
+}
+
+.dialpad .dials .digits {
+	float: left;
+	width: 33.33%
+}
+
+.dialpad .dials .digits p {
+	text-align:center;
+	padding: 8px 18px;
+	border-top: 1px solid #f2f2f2;
+	border-right: 1px solid #f2f2f2;
+	border-bottom: 1px solid #f2f2f2;
+	border-left: 1px solid #f2f2f2
+}
+
+.dialpad .dials .digits p strong {
+	font-size: 0px;
+	margin-right: 8px;
+	color: black;
+}
+
+.dialpad .dials .digits:active {
+	background: gray; /* #00caf2; */
+	border-top-color: #b2f2ff
+}
+/*#######################*/
+.newCallDialpad .dials {
+	margin: -1px 0 0 -1px;
+	background: #EDEEED;
+	cursor: pointer; 
+}
+
+.newCallDialpad .dials:before, .newCallDialpad .dials:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	overflow: hidden
+}
+
+.newCallDialpad .dials:after {
+	clear: both
+}
+
+.newCallDialpad .dials .digits {
+	float: left;
+	width: 33.33%
+}
+
+.newCallDialpad .dials .digits p {
+	text-align:center;
+	padding: 8px 18px;
+	border-top: 1px solid #f2f2f2;
+	border-right: 1px solid #f2f2f2;
+	border-bottom: 1px solid #f2f2f2;
+	border-left: 1px solid #f2f2f2
+}
+
+.newCallDialpad .dials .digits p strong {
+	font-size: 0px;
+	margin-right: 8px;
+	color: black;
+}
+
+.newCallDialpad .dials .digits:active {
+	background: gray; /* #00caf2; */
+	border-top-color: #b2f2ff
+}
+/*################################*/
+.compact .dials .digits {
+	float: left;
+	width: 33.33%
+}
+
+.compact .dials .digits p {
+	padding: 18px 8px
+}
+
+.compact .dials .digits p strong {
+	font-size: 20px
+}
+
+.compact .dials .digits p sup {
+	text-transform: uppercase;
+	color: #c1c1c1
+}
+
+.compact .dials .pad-action {
+	background: #093
+}
+
+.compact F.dials .pad-action:active {
+	background: #0c3
+}
+
+.compact .newCallDials .newCallDigits {
+	float: left;
+	width: 33.33%
+}
+
+.compact .newCallDials .newCallDigits p {
+	padding: 18px 8px
+}
+
+.compact .newCallDials .newCallDigits p strong {
+	font-size: 20px
+}
+
+.compact .newCallDials .newCallDigits p sup {
+	text-transform: uppercase;
+	color: #c1c1c1
+}
+
+.compact .newCallDials .pad-action {
+	background: #093
+}
+
+.compact F.newCallDials .pad-action:active {
+	background: #0c3
+}
+
+.callButton{
+    margin-top: 14px;
+    margin-right: 10px;
+    background-color: #29965F;
+    width: 110px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    color: white;
+}
+
+.center{
+    display: inline-block;
+}

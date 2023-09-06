@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Agent Companion Page</title>
+    <link rel="stylesheet" href="css/liveWinPhoneCompanion.css" type="text/css" >  
+    <script type="text/javascript" src="js/lib/jquery-2.0.3.min.js"></script>
+    <!--script type="text/javascript" src="js/atmosphere.min.js"></script-->
+    <script type="text/javascript" src="js/atmosphere.js"></script>
+    <script type="text/javascript" id="dynamicLoadScript">
+        (function() {
+            window.dynamicLoadCompleted = false;
+            window.staticLoadCompleted = false;
+            
+            function getParameterByName(name) {
+                var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+                return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+            }
+
+            var oraApiPath = '';
+            var oraOrigin = getParameterByName('oraParentFrame');
+            var oraApiSource = getParameterByName('oraApiSource');
+            
+            console.log('######### [Live Win Companion Panel oraParentFrame]: '+oraOrigin);
+            console.log('######### [Live Win Companion Panel oraApiSource]: '+oraApiSource);
+            try {
+                //if (oraApiSource.endsWith('.js')) {
+                    oraApiPath = oraOrigin+oraApiSource;
+                //} else {
+                //    oraApiPath = oraOrigin+oraApiSource+'.js';
+                //}        
+            } catch (e) {
+                console.error(e);
+            }
+            console.log('######### [Live Win Companion Panel]: '+oraApiPath);
+            
+            var currentNode = document.getElementById('dynamicLoadScript');
+            var node = document.createElement('script');
+            node.type = 'text/javascript';
+            node.charset = 'utf-8';
+            node.async = true;
+            node.src = oraApiPath;
+            node.addEventListener('load', function(evt) { 
+                window.dynamicLoadCompleted = true;
+                if (window.staticLoadCompleted && window.dynamicLoadCompleted) {
+                    window.initCompanionPanel();
+                }
+            }, false);
+            //node.addEventListener('error', function(evt) { alert("Error LOAD"); }, false);
+            node.addEventListener('error', function(evt) { 
+				console.log('#### [Error occured in Live Window Reference Toolbar Companion while loading URL]: '+oraApiPath);
+			}, false);
+
+            currentNode.parentNode.insertBefore(node, currentNode.nextSibling);
+        })();
+    </script>
+    <!--script type="text/javascript" src="js/fullAgent.min.js"></script-->
+    <!--script type="text/javascript" src="js/fullAgent.js"></script-->
+    <script type="text/javascript" src="js/liveWinPhoneCompanion.js"></script>
+    <script type="text/javascript" >
+        $(document).ready(function() {
+            window.staticLoadCompleted = true;
+            if (window.staticLoadCompleted && window.dynamicLoadCompleted) {
+                window.initCompanionPanel();
+            }
+        });            
+    </script>    
+</head>
+<body>
+    <div id="eventListContainer">
+      <div id="topEvent" class="eventList eventListStyle phoneEventList unfocusedPhoneEvent">
+        <div id="topEventIcon" class="eventIcon inactiveEvent">
+        </div>
+        <div id="topDate" class="eventDate">10/4: </div>
+       <div id="topEventText" class="eventText regularEventText">
+           Make sure you have requested holiday vacation before the deadline
+        </div>
+      </div>
+      <div id="bottomEvent" class="eventList eventListStyle phoenEventList focusedPhoneEvent">
+        <div id="bottomEventIcon" class="eventIcon activeEvent">
+        </div>
+        <div id="bottomDate" class="eventDate">10/4: </div>
+        <div id="bottomEventText" class="eventText focusedEventText">
+           Special of the week: $45 off all Triple Play Packages. See more...
+        </div>
+       </div>
+  </div>
+<div id="companionDataArea" class="companionData companionDataStyle">
+  <div id="GeneralInfo" class="leftDataPanel leftDataPanelStyle">
+     <div id="omniSummary" class="omniSummaryArea omniSummaryAreaStyle">
+         <button id="newCallLabelItem" class="omniSummaryItem omniSummaryLabel">
+               New Call
+         </button>
+         <div id="omniItemSpacer1" class="omniItemSpacer"></div>
+         <div id="vmlItem" class="omniSummaryItem omniSummarybody">
+             VM (3)
+         </div>
+         <div id="omniItemSpacer2" class="omniItemSpacer"></div>
+         <div id="chatItem" class="omniSummaryItem omniSummarybody">
+            Chat (2)
+         </div>
+      </div>
+       <div id="comLogo" class ="companionLogoArea">
+          <img src="images/companionLogo.png" width="128px" height="210px"/>
+       </div>
+  </div>
+  <!--div id="spacer1" class="spacerV2"></div-->
+  <div id="PhoneCallInfo" class="rightDataPanel rightDataPanelStyle">
+     <div id="curentStats" class="currentStatsArea currentStatsAreaStyle">
+         <div id="waitTimeItem" class="currentStatsItem currentStatsItemStyle">
+            <div id="waitTimeLogo" class="currentStatsLogoItem ">
+                <img src="images/qual_clock_32.png"/>
+            </div>
+            <div id="waitTimeInnerItem" class="currentStatsInnerItem currentStatsInnerItemStyle">
+              <div id="waitTimeNumber" class="currentStatsDataItem  currentStatsAlarm">
+               0:00
+              </div>
+              <div id="waitTimeUnit" class="currentStatsUnitItem">
+                Avg. Wait
+              </div>
+            </div>
+         </div>
+         <div  id="currentStatsSpacer1" class="currentStatsSpacer">
+           <img src="images/dot.png"/>
+         </div>
+         <div id="callStatsItem" class="currentStatsItem currentStatsItemStyle">
+            <div id="callStateLogo" class="currentStatsLogoItem ">
+                <img src="images/blue_phone_32.png"/>
+            </div>
+            <div id="callStateInnerItem" class="currentStatsInnerItem currentStatsInnerItemStyle">
+               <div id="callStatsNumber" class="currentStatsDataItem">
+               0
+              </div>
+              <div id="callStatsUnit" class="currentStatsUnitItem">
+                Calls
+              </div>
+            </div>
+         </div>
+         <div  id="currentStatsSpacer2" class="currentStatsSpacer">
+	         <img src="images/dot.png"/>
+         </div>
+         <div id="chatStatsItem" class="currentStatsItem currentStatsItemStyle">
+            <div id="chatStateLogo" class="currentStatsLogoItem ">
+                <img src="images/qual_personchat_32.png"/>
+            </div>
+            <div id="chatStateInnerItem" class="currentStatsInnerItem currentStatsInnerItemStyle">
+              <div id="chatStatsNumber" class="currentStatsDataItem">
+               14
+              </div>
+              <div id="chatStatsUnit" class="currentStatsUnitItem">
+                Chats
+              </div>
+           </div>
+         </div>
+      </div>
+     <div id="queueStats" class="queueStatsArea queueStatsAreaStyle">
+         <div id="myQueues" class="queueHeader">My Queues</div>
+         <div id="myQuqueDivider">
+           <img src="images/divider.png"/>
+         </div>
+         <div id="queueLabel" class="queueItem queueItemStyle">
+              <div class="queueName"></div>
+              <div class="queueDataItem">Waiting</div>
+              <div class="queueDataItem">Wait</div>
+              <div class="queueDataItem">Agents</div>
+         </div>
+         <div id="queueComuputer" class="queueItem queueItemStyle">
+              <div class="queueName" id="queueName1">Computers</div>
+              <div class="queueDataItem">23</div>
+              <div class="queueDataItem">2:33</div>
+              <div class="queueDataItem">15</div>
+         </div>
+         <div id="queuePeripheral" class="queueItem queueItemStyle">
+              <div class="queueName" id="queueName2">Peripherals</div>
+              <div class="queueDataItem">11</div>
+              <div class="queueDataItem">1:56</div>
+              <div class="queueDataItem">10</div>
+         </div>
+         <div id="queueStorage" class="queueItem queueItemStyle">
+              <div class="queueName" id="queueName3">Storage</div>
+              <div class="queueDataItem">5</div>
+              <div class="queueDataItem">3:44</div>
+              <div class="queueDataItem">6</div>
+         </div>
+       </div>
+     <div id="teamStats" class="teamStatsArea teamStatsAreaStyle">
+         <div id="teamTitleArea" class="teamHeader">Team</div>
+         <div id="myTeamDivider">
+           <img src="images/divider.png"/>
+         </div>
+         <div id="teamMember1" class="teamItem teamItemStyle">
+             <div class="teamMemberPhoto">
+                 <img src="images/team1.png" width="50px" height="50px"/>
+             </div>
+             <div class="teamMemberName">Jack Springer</div>
+             <div class="teamMemberTime">4:23</div>
+             <div class="teamMemberWarning">
+             </div>
+             <div class="customerItem customerItemStyle">
+                <div class="customerNameItem">Tom Jespen</div>
+                <div class="customerTitleItem">IT Manager, Teleos Telecom</div>
+                <div class="customerAddressItem">Culver City, CA</div>             
+             </div>
+             <div class="customerPhoneNumItem">+1 408-895-4564</div>
+         </div>
+         <div id="teamMember2" class="teamItem teamItemStyle">
+             <div class="teamMemberPhoto">
+                 <img src="images/team2.jpg" width="50px" height="50px"/>
+             </div>
+             <div class="teamMemberName">Wendy Tomaei</div>
+              <div class="teamMemberTime">12:19</div>
+             <div class="teamMemberWarning">
+                <img src="images/warning.png"  width="20px" height="25px"/>
+             </div>
+             <div class="customerItem customerItemStyle">
+                <div class="customerNameItem">Jiresh Sundar</div>
+                <div class="customerTitleItem">Maxximux, Inc</div>
+                <div class="customerAddressItem">Phoenix, AZ</div>             
+             </div>
+             <div class="customerPhoneNumItem">+1 531-895-4564</div>
+         </div>
+         <div id="teamMember3" class="teamItem teamItemStyle">
+             <div class="teamMemberPhoto">
+                 <img src="images/team3.png" width="50px" height="50px"/>
+             </div>
+             <div class="teamMemberName">Georges Duvale</div>
+            <div class="teamMemberTime">1:00</div>
+             <div class="teamMemberWarning">
+             </div>
+             <div class="customerItem customerItemStyle">
+                <div class="customerNameItem customerNameUnkown">Unknown</div>
+                <!--div class="customerTitleItem"></div>
+                <div class="customerAddressItem"></div-->             
+             </div>
+             <div class="customerPhoneNumItem">+2 503-895-4564</div>
+         </div>
+      </div>
+  </div>
+</div>       
+</body>
+</html>
