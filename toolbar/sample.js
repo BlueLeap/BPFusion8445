@@ -969,33 +969,41 @@ function isAgentSignedIn() {
     return signedin
 }
 
-function agentSignIn(_username, _password, _extension, success, failure) {
+function agentSignIn() {
 
-    console.log("agentSignIn CALLED")
+let _username = "blueleap2";
+let _password = "13579";
+let _extension = "3752";
 
-    let signin_callback = function (data, statusText, xhr) {
-        let stat = _signInHandler(data, statusText, xhr)
-        if (stat) {
-            let agentObject = {
-                "extension": _extension,
-                "agentid": _username,
-                "password": _password,
-                "ACCT": acctID
-            }
-            setAgentObject(agentObject).then(success)
-        }
-        else {
-            console.log("SIGNIN FAILED")
-            failure()
-        }
-    }
-    //Create Finesse object and sign in user. On successful sign in, a
-    //handler will be invoked to present more API options in UI.
-    console.log("SHOULD ATTEMPT LOGIN HERE")
-    _finesse = new Finesse(_username, _password);
-    _finesse.signIn(_username, _extension, true, signin_callback, signin_callback);
+console.log("agentSignIn CALLED")
+
+let signin_callback = function (data, statusText, xhr) {
+let stat = _signInHandler(data, statusText, xhr)
+if (stat) {
+let agentObject = {
+"extension": _extension,
+"agentid": _username,
+"password": _password,
+"ACCT": acctID
+}
+console.log(acctID)
+console.log(agentObject)
+setAgentObject(agentObject).then(success)
+}
+else {
+console.log("SIGNIN FAILED")
+failure()
+}
+}
+//Create Finesse object and sign in user. On successful sign in, a
+//handler will be invoked to present more API options in UI.
+console.log("SHOULD ATTEMPT LOGIN HERE")
+_finesse = new Finesse(_username, _password);
+_finesse.signIn(_username, _extension, true, signin_callback, signin_callback);
 
 }
+
+
 
 
 
