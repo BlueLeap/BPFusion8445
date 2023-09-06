@@ -988,7 +988,6 @@ let agentObject = {
 }
 console.log(acctID)
 console.log(agentObject)
-setAgentObject(agentObject).then(success)
 }
 else {
 console.log("SIGNIN FAILED")
