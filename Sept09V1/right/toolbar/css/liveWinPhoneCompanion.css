@@ -1,0 +1,484 @@
+/* 
+    Created on : Septemeber 28, 2017
+    Author     : hhuang
+*/
+
+
+body {
+	margin: 0px 0px 0px 0px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	overflow-x: hidden;
+}
+
+.truncate {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 11em;
+}
+
+#eventListContainer {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	padding-left: 2px;
+	padding-top: 10px;
+}
+
+.eventList {
+	width: 725px;
+	height: 42px;
+	padding: 1px;
+}
+
+.eventListStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+
+.phoneEventList {
+	font-size: 16px;
+	font-weight: normal;
+	color: black;
+}
+
+.unfocusedPhoneEvent {
+	border: 1px solid #2F528F;
+	border-bottom-width: 0px;
+}
+
+.focusedPhoneEvent {
+	border: 1px solid #2F528F;
+}
+
+.eventIcon {
+	width: 55px;
+	height: 40px;
+	padding: 0px;
+}
+
+.activeEvent {
+	background-image: url(../images/dark_star.png);
+	background-color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: 19px 2px;
+}
+
+.inactiveEvent {
+	background-image: url(../images/arrow.png);
+	background-color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: 30px 10px;
+}
+
+.eventDate {
+	width: 45px;
+	height: 36px;
+	padding: 9px;
+	font-size: 18px;
+}
+
+.eventText {
+	width: 590px;
+	height: 40px;
+	padding-left: 0px;
+	padding-top: 9px;
+	font-size: 17px;
+}
+
+.regularEventText {
+   color: black;	
+}
+
+.focusedEventText {
+   color: #2F528F;	
+}
+
+.companionData {
+	width: 750px;
+	height: 540px;
+	padding: 1px;
+	padding-top: 15px;
+}
+
+.companionDataStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+
+.leftDataPanel {
+	width: 128px;
+	height: 540px;
+	padding: 1px;
+}
+
+.leftDataPanelStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.spacerV1 {
+	width: 10px;
+	height: 720px;
+	padding: 1px;
+}
+
+.spacerV2 {
+	width: 20px;
+	height: 620px;
+	padding: 1px;
+}
+
+.spacerH1 {
+	width: 730px;
+	height: 10px;
+	padding: 1px;
+}
+
+.spacerH2 {
+	width: 560px;
+	height: 10px;
+	padding: 1px;
+}
+
+.omniSummaryArea {
+	width: 128px;
+	height: 134px;
+}
+
+.omniSummaryAreaStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.omniSummaryItem {
+	width: 120px;
+	height: 24px;
+	font-size: 17px;
+	border: 1px solid #2F528F;
+	text-align: center;
+	padding-top: 0px;
+	vertical-align: middle;
+}
+
+.omniSummaryLabel {
+  background-color: #647EB0;
+  color: #FFFFFF;
+}
+
+.omniSummarybody {
+  color: #647EB0;
+  background-color: #F6F8FC;
+}
+
+
+.omniItemSpacer {
+	width: 120px;
+	height: 13px;
+}
+
+.companionLogoArea {
+	width: 128px;
+	height: 210px;
+	padding-top: 184px;
+}
+
+.companionLogo {
+	background-image: url(../images/companionLogo.png);
+	background-color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: 2px 1px;
+}
+
+.rightDataPanel {
+	width: 575px;
+	height: 540px;
+	padding: 1px;
+	padding-left: 22px;
+}
+
+.rightDataPanelStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.currentStatsArea {
+	width: 575px;
+	height: 106px;
+}
+
+.currentStatsAreaStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+
+.currentStatsItem {
+	width: 152px;
+	height: 126px;
+	border: 0px solid #2F528F;
+	text-align: left;
+	color: #647EB0;
+}
+
+.currentStatsLogoItem {
+	width: 60px;
+	height: 80px;
+	border: 0px solid #2F528F;
+	text-align: center;
+	color: #647EB0;
+	padding-top: 21px;
+    padding-left: 33px;
+}
+
+
+.currentInnerStatsItem {
+	width: 102px;
+	height: 126px;
+	border: 1px solid #2F528F;
+	text-align: center;
+	color: #647EB0;
+}
+
+
+.currentStatsNormal {
+   color: #42F407;
+}
+
+.currentStatsWarning {
+   color: #F4B107;
+}
+
+.currentStatsAlarm {
+   color: #FF1900;
+}
+
+.currentStatsInnerItemStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.currentStatsItemStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+.currentStatsDataItem {
+	width: 120px;
+	height: 50px;
+	font-size: 42px;
+	padding-top: 14px;
+}
+
+.currentStatsUnitItem {
+	width: 120px;
+	height: 45px;
+	font-size: 18px
+}
+
+.currentStatsSpacer {
+	width: 40px;
+	height: 70px;
+	padding-top: 46px;
+	text-align: center;
+}
+
+.queueStatsArea {
+	width: 572px;
+	height: 176px;
+	padding-top: 0px;
+	color: #647EB0;
+}
+
+.queueStatsAreaStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.queueHeader {
+	width: 180px;
+	height: 40px;
+	font-size: 23px;
+	padding-top: 14px;
+	color: #8a9298;
+}
+
+.queueItem {
+	width: 540px;
+	height: 30px;
+	padding-top: 0px;
+}
+
+.queueItemStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+
+.queueItem .queueName {
+	width: 155px;
+	height: 30px;
+	text-align: left;
+	font-size: 18px;
+	color: #647EB0;
+	padding-top: 10px;
+}
+
+.queueItem .queueDataItem {
+	width: 130px;
+	height: 30px;
+	text-align: Center;
+	font-size: 18px;
+	color: #8a9298;
+	padding-top: 10px;
+}
+
+.teamStatsArea {
+	width: 480px;
+	height: 270px;
+	padding-top: 20px;
+	color: #647EB0;
+}
+
+.teamStatsAreaStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.teamHeader {
+	width: 156px;
+	height: 22px;
+	font-size: 23px;
+	padding-top: 7px;
+	color: #8a9298;}
+
+.teamItem {
+	width: 560px;
+	height: 60px;
+	padding-top: 4px;
+}
+
+.teamItemStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+
+.teamItem .teamMemberPhoto {
+	width:50px;
+	height: 50px;
+	text-align: left;
+	font-size: 25px;
+}
+
+.teamItem .teamMemberName {
+	width: 155px;
+	height: 40px;
+	text-align: left;
+	font-size: 14px;
+	font-weight: bold;
+	padding-top: 15px;
+	padding-left: 2px;
+	color: #647EB0;
+}
+
+.teamItem .teamMemberTime {
+	width: 50px;
+	height: 40px;
+	text-align: center;
+	font-size: 17px;
+	padding-top: 15px;
+	padding-left: 2px;
+}
+
+.teamItem .teamMemberWarning {
+	width: 20px;
+	height: 40px;
+	text-align: middle;
+	font-size: 14px;
+	padding-top: 12px;
+	padding-left: 2px;
+}
+
+.teamItem .customerItem {
+	width: 162px;
+	height: 60px;
+	text-align: right;
+	font-size: 25px;
+	padding-left: 3px;
+}
+
+.teamItem .customerItemStyle {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.teamItem .customerNameItem {
+	width: 140px;
+	height: 20px;
+	text-align: left;
+	font-size: 17px;
+	padding-left: 4px;
+	color: #55585a;
+}
+
+.teamItem .customerNameUnkown {
+	padding-top: 13px;
+}
+
+.teamItem .customerTitleItem {
+	width: 143px;
+	height: 18px;
+	text-align: left;
+	font-size: 11px;
+	padding-left: 4px;
+	padding-top: 3px;
+	color: #55585a;
+}
+
+.teamItem .customerAddressItem {
+	width: 143px;
+	height: 18px;
+	text-align: left;
+	font-size: 12px;
+	padding-left: 4px;
+	color: #55585a;
+}
+
+.teamItem .customerPhoneNumItem {
+	width: 140px;
+	height: 40px;
+	text-align: right;
+	font-size: 13px;
+	padding-left: 4px;
+	padding-top: 10px;
+	color: #55585a;
+}
+
+.center {
+	display: inline-block;
+}
