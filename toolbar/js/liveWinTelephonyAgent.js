@@ -4713,7 +4713,7 @@
         $('#availableBtn').click(function() {
         	
         	if (agentInfo.getAgentStatus() == 'OFF') {
-	            agentInfo.agentLogin();
+	            agentSignInClickHandler();
 	            userLoggedInInfo();
         	} else if (agentInfo.getAgentStatus() == 'LOGGED_IN') {
         	    agentInfo.setAgentOnBreak();
