@@ -2343,9 +2343,7 @@
                     	}
                     }
                     
-                    if (agentId) {
-                        retrieveUniqueAgentId(agentId);
-                    }
+                   
                  }
             });
         };
