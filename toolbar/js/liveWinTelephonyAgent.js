@@ -4711,17 +4711,7 @@
         };
 
         $('#availableBtn').click(function() {
-        	
-        	if (agentInfo.getAgentStatus() == 'OFF') {
-	            agentSignInClickHandler();
-	            userLoggedInInfo();
-        	} else if (agentInfo.getAgentStatus() == 'LOGGED_IN') {
-        	    agentInfo.setAgentOnBreak();
-        	} else if (agentInfo.getAgentStatus() == 'ON_BREAK') {
-        		agentInfo.setAgentOffBreak();	
-        	}
-        	
-        	//event.preventDefault();
+        	agentSignInClickHandler();
 	     });
 
         $('#cpCtrlBtn').click(function() {
