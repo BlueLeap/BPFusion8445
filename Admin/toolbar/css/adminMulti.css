@@ -1,0 +1,132 @@
+/* 
+    Created on : Mar 21, 2016, 10:33:25 AM
+    Author     : cpripoae
+*/
+
+* {font-family: tahoma; font-size: 12px; padding: 0px; margin: 0px;}
+
+p {line-height: 18px;}
+#content {width: 500px; padding: 5px; background: #ddd; border-radius: 5px; border: 1px solid #CCC; margin-top: 10px; margin-right: 20px; float:left; margin-bottom: 500px;}
+#input {border-radius: 2px; border: 1px solid #ccc; margin-top: 10px; padding: 5px; width: 380px;}
+#agents {width: 500px; padding: 5px; background: #f5deb3; border-radius: 5px; border: 1px solid #CCC; margin-top: 10px; float: right}
+#callConfig {width: 500px; padding: 5px; background: #f5deb3; border-radius: 5px; border: 1px solid #CCC; margin-top: 10px; float: right}
+#keyValue {width: 500px; padding: 5px; background: #f5deb3; border-radius: 5px; border: 1px solid #CCC; margin-top: 10px; float: right }
+#keyValue input[type=text]{
+  width: 200px;
+  height: 25px;
+}
+
+#login {padding: 5px; background: #ddd; border-radius: 5px; border: 1px solid #CCC; margin-top: 20px; margin-left: auto; margin-right: auto;}
+#adminPanel{ width: 1045px; display: none; margin-left: auto; margin-right: auto;}
+input [type=text]{width: 80px;}
+#removePair {
+    width: 24px;
+    height: 24px;
+    background-image: url(../images/func_remove_16_ena.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0px 0px 0px 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+}
+/* initial - back: #EAD1A4 - border: #7A5222 */
+.agentData { line-height: 18px; background-color: #E2C185; padding: 2px; border: 1px solid #AD7D44; float: left; width: 100%;}
+.agentData button { min-width: 60px; min-height: 16px; border: 1px solid #AD7D44; }
+#agent_data.agentData { height: 25px; }
+//#agent_data.agentData { height: 96px; }
+.agentLineName { width: 50px }
+.callStatus { width: 230px }
+//.agentDataLine { height: 25px; border: 1px solid #AD7D44; }
+.agentDataLine { height: 22px; border: 0px solid #AD7D44; }
+.agentDataLineStype { webkit-flex-grow: 1; flex-grow: 1; display: flex; -webkit-flex-direction: row; flex-direction: row; }
+.agentName { color: blue; min-width: 158px }
+.agentLabel { width: 42px }
+.agentStatus { width: 80px }
+.sendMsgButton { width: 100px }
+.toolbarCmdButton {float:right; width: 80px }
+
+.skipCheckboxes{
+	display:none;
+	float:right;
+	margin-right: 10px;
+  margin-top: 2px;
+}
+
+.connectedAgents{
+	float:left;
+}
+.callConfiguration{
+	font-weight: bold;
+}
+
+.formField{
+	width:450px;
+}
+
+.formField label, select {
+	width:150px;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.formField input[type=text]{
+	width:150px;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.formFieldMsg input[type=text]{
+	width:380px;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.formFieldQName input[type=text]{
+	width:120px;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.formFieldWaitTime input[type=text]{
+	width:50px;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+
+.callIcon {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+}
+.inboundCall {
+    background-color: #29965F;
+    background-image: url(../images/func_arrowmoveright_16_onb.png);
+    background-repeat: no-repeat;
+    background-position: 2px 1px;
+}
+.outboundCall {
+    background-color: #296FD1;
+    background-image: url(../images/func_arrowmoveleft_16_onb.png);
+    background-repeat: no-repeat;
+    background-position: 0px 1px;
+}
+
+.restUrl{
+	display:none;
+	width:100%;
+}
+
+#phoneCompanion {width: 500px; padding: 5px; background: #f5deb3; border-radius: 5px; border: 1px solid #CCC; margin-top: 10px; float: right}
+
+.companionPanelMsg{
+	font-weight: bold;
+}
