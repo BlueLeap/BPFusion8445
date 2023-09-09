@@ -4709,7 +4709,7 @@
         };
 
         $('#availableBtn').click(function() {
-        	agentSignIn();
+        	
 
 		            svcMcaTlb.api.getConfiguration("TOOLBAR", function(response) { 
                 if (response.configuration) {
@@ -4745,7 +4745,7 @@
                 svcMcaTlb.api.postToolbarMessage(JSON.stringify( {"msgCommand":"AGENT_AVAIL"} ), function(response) {
                     console.log("======== Response for POST from agentLogin - status: "+response.result);
                 });
-
+                agentSignIn();
 		userLoggedInInfo()
 	     });
 
