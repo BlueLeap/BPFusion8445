@@ -3879,41 +3879,6 @@
             };
 
             function retrieveUniqueAgentId(agentId) {
-                prepareLogging();
-
-
-                var uuidReqData = {
-                    type: 'GET',
-                    dataType: 'json',
-                    async: true,
-                    url : 'https://cti-prod.cna.iad.demoservices001.oraclepdemos.com/toolbar/services/agent/id?userAgent=alan.hooper',
-                    data: {},
-                    error: function( jqXHR, textStatus, errorThrown ) {
-                        console.log("Get Agent ID failed with status: "+jqXHR.status+" - message: "+textStatus);
-                        console.log("Fallback too locally generated ");
-
-                        var unqUsername = agentId+"_"+(new Date()).getTime();
-                        self.agentId = agentId; 
-                        self.agentUniqueId = unqUsername;
-                        self.subSocket.connect(unqUsername, function(){
-                            atmoSubscribeCallback(unqUsername);
-                        }, handleMessage);
-                    },
-                    success : function ( data, textStatus, jqXHR ) {
-                        console.log("agentInfo Retrieved: "+data.agentId);
-                        var unqUsername = data.agentId;
-                        self.agentId = agentId; 
-                        self.agentUniqueId = data.agentId;
-                        self.subSocket.connect(unqUsername, function(){
-                            atmoSubscribeCallback(unqUsername);
-                            self.call.setAuthor(unqUsername);
-                            self.call2.setAuthor(unqUsername);
-                            self.chat.setAuthor(unqUsername);
-                            self.chat2.setAuthor(unqUsername);
-                        }, handleMessage);
-                    }
-                };
-                $.ajax(uuidReqData);
             };
 
             function checkAgentLoggedin(inAgentId, loggedInCallback) {
