@@ -2938,15 +2938,42 @@
 
             function agentLogin(){
                 //$('#outbound').hide()
-                window.onbeforeunload = (function(){
-                    logoutAgent();
-                });
-                configureAgentInfo();
+
+                   svcMcaTlb.api.getConfiguration("TOOLBAR", function(response) { 
+                if (response.configuration) {
+                    var agentId = response.configuration.agentId;
+                    
+                    var comPanelUrl = response.configuration.companionPanelUrl;
+                    var comPanelTitle = response.configuration.companionPanelTitle;
+                    //var features = response.configuration.features;
+                    var features = null;
+                    if (response.configuration.features) {
+                    	features = JSON.parse(response.configuration.features);
+                    }
+
+                    console.log("getConfiguration agentId: " + agentId + " Companion Panel URL: " + comPanelUrl + " Title: "+ comPanelTitle);
+                    console.log("getConfiguration features: " + features);
+
+                    setCompanionPanelUrl(comPanelUrl);
+                    setCompanionPanelTitle(comPanelTitle); 
+                    
+                    if (features) { 
+                    	for (var i=0; i<features.length; i++) {
+                    	    var feature = features[i]; 
+                    		console.log("getConfiguration feature: ["+i+"]:" + feature +";");
+                    	}
+                    }
+                    
+                    if (agentId) {
+                        retrieveUniqueAgentId(agentId);
+                    }
+                 }
+            });
 
                 svcMcaTlb.api.postToolbarMessage(JSON.stringify( {"msgCommand":"AGENT_AVAIL"} ), function(response) {
                     console.log("======== Response for POST from agentLogin - status: "+response.result);
                 });
-
+                
             };
 
             function isCustomerDataPresent(data){
@@ -4710,42 +4737,8 @@
 
         $('#availableBtn').click(function() {
         	
-
-		            svcMcaTlb.api.getConfiguration("TOOLBAR", function(response) { 
-                if (response.configuration) {
-                    var agentId = response.configuration.agentId;
-                    
-                    var comPanelUrl = response.configuration.companionPanelUrl;
-                    var comPanelTitle = response.configuration.companionPanelTitle;
-                    //var features = response.configuration.features;
-                    var features = null;
-                    if (response.configuration.features) {
-                    	features = JSON.parse(response.configuration.features);
-                    }
-
-                    console.log("getConfiguration agentId: " + agentId + " Companion Panel URL: " + comPanelUrl + " Title: "+ comPanelTitle);
-                    console.log("getConfiguration features: " + features);
-
-                    setCompanionPanelUrl(comPanelUrl);
-                    setCompanionPanelTitle(comPanelTitle); 
-                    
-                    if (features) { 
-                    	for (var i=0; i<features.length; i++) {
-                    	    var feature = features[i]; 
-                    		console.log("getConfiguration feature: ["+i+"]:" + feature +";");
-                    	}
-                    }
-                    
-                    if (agentId) {
-                        retrieveUniqueAgentId(agentId);
-                    }
-                 }
-            });
-
-                svcMcaTlb.api.postToolbarMessage(JSON.stringify( {"msgCommand":"AGENT_AVAIL"} ), function(response) {
-                    console.log("======== Response for POST from agentLogin - status: "+response.result);
-                });
-                agentSignIn();
+        agentLogin()
+		agentSignIn();
 		userLoggedInInfo()
 	     });
 
