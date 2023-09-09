@@ -595,7 +595,7 @@ function _signInHandler(data, statusText, xhr) {
         if (xhr.status === 202) {
 
             //@Don
-            alert("Login in Successfully")
+            //alert("Login in Successfully")
             return true
 
         }
