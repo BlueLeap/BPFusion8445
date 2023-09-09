@@ -4704,7 +4704,7 @@
         	
                 agentInfo.agentLogin()
 		agentSignIn();
-		userLoggedInInfo()
+		//userLoggedInInfo()
 	     });
 
         $('#cpCtrlBtn').click(function() {
