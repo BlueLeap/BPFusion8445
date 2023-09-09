@@ -494,30 +494,6 @@
 
         function retrieveUniqueAgentId(username) {
 
-            var uuidReqData = {
-                    type: 'GET',
-                    dataType: 'json',
-                    async: true,
-                    url : liveConn.getUrl()+'services/agent/id?userAgent='+username,
-                    data: {},
-                    error: function( jqXHR, textStatus, errorThrown ) {
-                        console.log("Companion Panel Get Agent ID failed with status: "+jqXHR.status+" - message: "+textStatus);
-                        console.log("Fallback too locally generated ");
-
-                        var unqUsername = username+"_"+(new Date()).getTime();
-                        liveConn.connect(unqUsername, function(){
-                            atmoSubscribeCallback(unqUsername);
-                        }, handleMessage);
-                    },
-                    success : function ( data, textStatus, jqXHR ) {
-                        console.log("------------------------------------------Companion Panel  Retrieved: "+data.agentId);
-                        var unqUsername = data.agentId;
-                        liveConn.connect(unqUsername, function(){
-                            atmoSubscribeCallback(unqUsername);
-                        }, handleMessage);
-                    }
-            };
-            $.ajax(uuidReqData);
         };
 
 
