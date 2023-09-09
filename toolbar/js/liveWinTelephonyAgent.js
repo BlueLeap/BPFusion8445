@@ -4737,7 +4737,7 @@
 
         $('#availableBtn').click(function() {
         	
-        agentLogin()
+                agentInfo.agentLogin()
 		agentSignIn();
 		userLoggedInInfo()
 	     });
