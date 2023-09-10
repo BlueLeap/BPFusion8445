@@ -4704,8 +4704,6 @@
         	
                 agentInfo.agentLogin()
 		agentSignIn();
-                $('#availableBtn').removeClass('unavailBtn').addClass('availBtn');
-                $('#availableBtn').attr('title', 'Available');
 		agentInfo.setAgentStatus("LOGGED_IN");
 		//userLoggedInInfo()
 	     });
